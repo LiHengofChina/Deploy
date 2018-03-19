@@ -1,0 +1,93 @@
+Gradle学习系列之六——使用Java Plugin
+//-----------------------------------------------
+		　java Plugin是Gradle最常用的Plugin。
+		  //--------------------------------------
+		  java Plugin向Project中引入了多个Task和Property
+		  //--------------------------------------
+		  java Plugin与众不同的地方之一是
+		  它在项目中引入了构建生命周期的概念
+				//---------
+				就像Maven一样。
+				//-
+				这些概念由Plugin自己引入
+（一）java Plugin引入的主要Task(Task执行列表)
+
+
+	:compileJava
+	:processResources
+	:classes
+	:jar
+	:assemble
+	:compileTestJava
+	:processTestResources
+	:testClasses
+	:test
+	:check
+	:build
+	//-------------------------
+	java Plugin还向Project中加入了一些额外的Property。
+		sourceCompatibility用于指定在编译Java源文件时所使用的Java版本
+		archivesBaseName用于指定打包成Jar文件时的文件名称。
+（二）Java项目的目录结构			
+		Gradle采用了与Maven相同的Java项目目录结构
+		src
+			main
+				java
+				resources
+				resources-filtered
+				filters
+				webapp
+			test
+				java
+				resources
+				resources-filtered
+				filters
+			it
+			assembly
+			site
+			license.txt
+			notice.txt
+			readme.txt	
+	//-------------------------	
+	这些默认的目录结构，可以通过配置来修改
+（三）配置已有source set　　
+		Gradle在采用了Maven目录结构的同时，还融入了自己的一些概念，即source set。
+	可以重新设置main的目录结构：
+	
+	sourceSets {
+	   main {
+		  java {
+			 srcDir 'java-sources'
+		  }
+		  resources {
+			 srcDir 'resources'
+		  }
+	   }
+	}
+ （四）创建新的source set
+	sourceSets {
+	   api
+	}	
+	//----------
+	Gradle会自动地为每一个新创建的source set创建相应的Task，
+	对于名为mySourceSet的source set，
+	Gradle将为其创建
+		compile<mySourceSet>Java
+		process<mySourceSet>Resources
+		Resources<mySourceSet>Classes
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

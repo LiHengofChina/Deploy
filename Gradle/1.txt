@@ -1,0 +1,90 @@
+Gradle入门教程:
+  //----------------------------
+　和Maven一样，Gradle只是提供了构建项目的一个框架，真正起作用的是Plugin。
+  //----------------------------
+  Gradle在默认情况下为我们提供了许多常用的Plugin
+  其中包括有构建Java项目的Plugin，
+  还有War，Ear等。
+  //----------------------------
+  与Maven不同的是，
+  Gradle不提供内建的项目生命周期管理，
+  只是java Plugin向Project中添加了许多Task，
+  这些Task依次执行，为我们营造了一种如同Maven般项目构建周期。
+  //----------------------------
+  领域驱动设计
+	Gradle本身的领域对象主要有Project和Task。
+	//---------
+	Project为Task提供了执行上下文，
+	//---------
+		所有的Plugin要么向Project中添加用于配置的Property，
+		//-----------
+		要么向Project中添加不同的Task。
+	//--------
+	一个Task表示一个逻辑上较为独立的执行过程，
+	比如编译Java源代码，
+	拷贝文件，
+	打包Jar文件，
+	至可以是执行一个系统命令或者调用Ant。
+	另外，一个Task可以读取和设置Project的Property以完成特定的操作。
+	//-------------创建一个 build.gradle 文件，内容如下：
+		task helloWorld << {
+		   println "Hello World!"
+		}
+			//----
+			<< 表示向helloWorld中加入执行代码
+		//--------------
+		Gradle向我们提供了一整套DSL
+		所以在很多时候我们写的代码似乎已经脱离了groovy，
+		但是在底层依然是执行的groovy。
+			//----
+			比如上面的task关键字，
+			其实就是一个groovy中的方法，
+		//--------------{ }  闭包
+		而大括号之间的内容则表示传递给task()方法的一个闭包。
+		//--------------执行
+		gradle helloWorld
+	//------- build.gradle
+	在默认情况下，Gradle将当前目录下的build.gradle文件作为项目的构建文件。
+	//----------------------------我们可以定义一个用于文件拷贝的Task：
+	task copyFile(type: Copy) {
+	   from 'xml'
+	   into 'destination'
+	}
+	//---------------------
+	xml 是文件
+	destination 是文件夹
+//-----------------------默认情况下，几个常用的Task，
+	gradle tasks
+	//-------
+	自己定义的copyFile和helloWorld之外
+	//-------
+	dependencies、projects和properties等Task。
+	dependencies用于显示Project的依赖信息，
+	gradle properties
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

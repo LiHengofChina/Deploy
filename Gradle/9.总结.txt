@@ -1,0 +1,83 @@
+//1. 真正起作用的是插件
+//2. "<<"表示向左边加入执行代码，表示追加
+//3. 配置阶段 执行阶段 
+4. Task 输入 输出 的概念；最新的（UP-TO-DATE）
+5. 增量式构建
+6.java Plugin 生命周期
+7. 目录结构
+   source set
+8.依赖管理
+9.配置库
+  repositories {
+     mavenCentral()
+  }
+10.依赖分组
+	每一组依赖称为一个Configuration
+    //如:
+	编译时
+    运行时
+	//------//定义 configurations
+    configurations { 
+	   myDependency
+	}
+    //-------向configurations加入依
+    dependencies {
+	   myDependency 'org.apache.commons:commons-lang3:3.0'
+	}
+	//-------把这些加入task
+	task showMyDependency << {
+		println configurations.myDependency.asPath
+	}
+	//依赖冲突，会选择最新版本
+11.项目加入jar举例
+	//连网
+	dependencies {
+	   compile 'org.slf4j:slf4j-log4j12:1.7.2'
+	   testCompile 'junit:junit:4.8.2'
+	}
+	//本地
+    dependencies {
+	   compile files('spring-core.jar', 'spring-aap.jar')
+	   compile fileTree(dir: 'deps', include: '*.jar')
+	}
+12.每个build.gradle都会创建一个相应的Project领域对象， 
+   //根项目有 allprojects()和 subprojects() 方法
+   多Project的项目中，我们会操作多个Project领域对象
+   //内容如下
+	  (1).子Project的名称
+			//子项目有 build.gradle
+	  (2).build.gradle
+	  (3).settings.gradle
+13. buildscript中的声明是gradle脚本自身需要使用的资源
+	   
+14.apply plugin: 'com.android.application'	  
+	//表示的是添加插件，其是可以理解为该 model 为一个 com.android.application 程序，
+		
+15.android {
+	
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+  

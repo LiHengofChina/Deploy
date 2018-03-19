@@ -1,0 +1,27 @@
+//----------------myeclipse集成gradle
+
+	Gradle插件最新在线安装地址可在如下网址中查找：
+	https://github.com/eclipse/buildship/blob/master/docs/user/Installation.md
+	
+	
+	如上图所示，由于MyEclipse 2015是基于Eclipse Luna (4.4) 开发的，因此我们在上述网址中查找 Luna (4.4) 对于的Gradle插件在线安装地址：
+	//-
+	http://download.eclipse.org/buildship/updates/e44/releases/1.0
+	 Help -> Install from Site…
+	 【Add…】 按钮，
+		在Add弹出窗口中输入
+		名称
+		Gradle插件在线安装地址
+	//单击【OK】后等待片刻列表中会出现可选择的安装项，
+	
+	//--------------
+	安装成功之后可以选择
+	File -> New –> Project…
+	新建立GRADLE项目
+	
+	//------------------------
+	安装这个后，可能需要重新安装SVN插件
+	
+	
+	
+	

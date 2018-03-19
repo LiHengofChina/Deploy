@@ -1,0 +1,29 @@
+
+ gradle安装教程
+//--------------需要先安装jdk
+
+//--------------下载地址
+ 
+	http://gradle.org/gradle-download/
+
+	解压
+	//--------------配置环境变量
+	GRADLE_HOME
+		E:\gradle-2.14
+	%GRADLE_HOME%\bin;	
+	//--------------安装成功
+	gradle -v
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
