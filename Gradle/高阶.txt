@@ -1,0 +1,92 @@
+Gradle在默认情况下为我们提供了许多常用的Plugin
+War
+Ear
+Java的Plugin向Project中添加了许多Task，
+因此引入java插件后，就多了许多可执行的任务
+Project为Task提供了执行上下文，
+
+
+
+(1).//	Project的默认	Task
+	gradle tasks	查看Project所有的Task
+	dependencies		用于显示Project的依赖信息
+	projects			用于显示所有Project
+	properties			显示一个Project所包含的所有Property。
+
+(2).//  Project默认的properties
+
+	使用gradle properties 查看
+
+(2).Project和build.gradle存在着一对一的关系。
+(3). doLast 与 << 作用相同
+	task hello1 << {
+		println 'hello1'
+	}
+	task hello2 {
+		doLast { println 'hello2'}
+		doFirst { println '第一行' } //doFirst将内容加在前面
+	}
+(4).自定义的3个Task都位于TaskContainer中，
+	Project中的tasks即表示该TaskContainer
+	println tasks.class
+	println tasks.size()		
+		
+(5).
+task showTasks {
+	doLast {
+		println '最后一行'
+	}	
+	doFirst {
+		println '第一行'
+	}
+	println tasks.class					//这部分代码配置的时候会被执行
+	println "共有"+tasks.size()+"个任务"//这部分代码配置的时候会被执行
+									
+}
+(6).使用create方法创建任务
+	tasks.create(name: 'hello4') << {
+		println 'hello4'
+	}
+(7).创建方法的时候，声明依赖
+	task hello5(dependsOn:hello4) << {
+		println 'hello5'
+	}
+(8).在创建之后再声明依赖	
+	hello6.dependsOn hello5	
+(9).任务内置property
+	//这些属性理解为，声明了，//但没有赋值
+	description
+	logger
+	//=========定义任务的时候进行赋值
+	task hello7 << {
+		description = "this is hello7"
+		println description
+	}
+	//=========通过闭包的方式来配置:
+	//通过闭包的方式在内部也是通过调用Task的configure()方法完成的
+	task hello8 << {
+		println description
+	}	 
+	//这个闭包必须放后面
+	hello8 {
+		description = "this is hello8"
+	}
+			//对于每一个Task，Gradle都会创建一个同名的方法，
+			//该方法接受一个闭包，
+	//=========使用configure方法来配置属性	
+	task hello9 << {
+		println description
+	}
+	hello9.configure {
+		description = "this is hello9"
+	}
+	//==========使用属性的方式
+	task hello9 << {
+		println description
+	}
+	hello9.description = "this is hello9s"
+		//对于每一个Task，
+		//Gradle都会在Project中创建一个同名的Property
+		//我们可以将该Task当作Property来访问，
+
+
