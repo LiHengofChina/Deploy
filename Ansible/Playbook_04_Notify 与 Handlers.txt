@@ -1,0 +1,55 @@
+//==============	Notify 与 Handlers
+//==============	Notify 与 Handlers
+//==============	Notify 与 Handlers
+		//==========介绍 event system
+		playbooks 本身可以识别这种改动,
+		并且有一个基本的 event system,
+		可以响应这种改动.
+		//==========Notify 通知
+		//==========Notify 通知
+		//==========Notify 通知
+			notify actions 会在 
+			playbook 的每一个 task 结束时被触发,
+				//==========
+				有多个不同的 task 通知改动的发生,
+				   notify actions 只会被触发一次.
+				//==========文字示例说明:
+				多个 resources 指出：
+					"由于一个配置文件被改动, apache 需要重新启动"
+				重新启动的操作只会被执行一次.
+				//==========具体示例
+				当一个文件的内容被改动时,
+				重启两个 services:
+				- name: template configuration file
+				  template: src=template.j2 dest=/etc/foo.conf
+				  notify:
+					 - restart memcached
+					 - restart apache			
+		//===========Handlers
+		//===========Handlers
+		//===========Handlers
+			1).Handlers 也是一些 task 的列表,通过名字来引用
+					//它们和一般的 task 并没有什么区别.
+			2).如果没有被 notify,handlers 不会执行.
+			3).	不管有多少个通知者进行了 notify
+				等到 play 中的所有 task 执行完成之后,
+				handlers 也只会被执行一次.
+			4).	Handlers 最佳的应用场景是用来重启服务,
+				或者触发系统重启操作.
+				handlers 会按照声明的顺序执行
+			//示例
+			handlers:
+				- name: restart memcached
+				  service:  name=memcached state=restarted
+				- name: restart apache
+				  service: name=apache state=restarted		
+				
+
+	
+	 
+ 
+		
+ 
+ 
+		
+		

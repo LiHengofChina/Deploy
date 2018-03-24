@@ -1,0 +1,72 @@
+//==============Tasks 任务
+//==============Tasks 任务
+//==============Tasks 任务
+	1).每一个 play 包含了一个 task 列表
+	2).一个 task 在其所对应的所有主机上执行完毕之后,
+	   下一个 task 才会执行
+	3).在一个 play 之中,所有 hosts 会获取相同的任务指令,
+	4).在运行 playbook 时（从上到下执行）
+	   如果一个 host 执行 task 失败,
+	   这个 host 将会从整个 playbook 的 rotation 中移除.
+	5).每一个 task 必须有一个名称 name,
+		//这样在运行 playbook 时
+		//从其输出的任务执行信息中
+		//可以很好的辨别出是属于哪一个 task 的.
+	6).每个 task 的目标在于执行一个 moudle, 
+			//通常是带有特定的参数来执行.
+			//在参数中可以使用变量（variables）.
+	7).  modules 具有"幂等"性,
+			//意思是:多次执行相同的改动，
+			//所以重复多次执行 playbook 也很安全.
+		1).对于 command module 和 shell module,
+			重复执行 playbook,实际上是重复运行同样的命令.
+			
+			//如："chmod" 或者 "setsebool" 这种命令
+			//这没有任何问题
+			
+			//可以使用一个叫做 "creates" 的 flag 
+			//使得这两个 module 变得具有 "幂等" 特性
+		 
+			//module 具有"幂等"性,所以当远端系统被人改动时,
+			//可以重放 playbooks 达到恢复的目的. 
+		
+ 
+	//==============基本的 task 的定义	
+	//====示例1:service moudle 使用 key=value 格式的参数,
+		tasks:
+		  - name: make sure apache is running
+			service: name=httpd state=running	
+	//====示例2:比较特别的两个 modudle 是 command 和 shell ,
+	//它们不使用 key=value 格式的参数,而是这样:
+		//=======返回0
+		tasks:
+		  - name: disable selinux
+			command: /sbin/setenforce 0
+		//=======不是返回0
+		tasks:
+		  - name: run this command and ignore the result
+			shell: /usr/bin/somecommand || /bin/true
+		tasks:
+		  - name: run this command and ignore the result
+			shell: /usr/bin/somecommand
+			ignore_errors: True	
+		//=======如果 action 行看起来太长,
+		//你可以使用 space（空格） 
+		//或者 indent（缩进） 隔开连续的一行:
+		tasks:
+		  - name: Copy ansible inventory file to client
+			copy: src=/etc/ansible/hosts dest=/etc/ansible/hosts
+					owner=root group=root mode=0644	
+		//=======使用变量
+		//这些变量在 tempates 中也是可用的,
+		tasks:
+		  - name: create a virtual host file for {{ vhost }}
+			template: src=somefile.j2 dest=/etc/httpd/conf.d/{{ vhost }}
+		
+		//==========列出 modules:
+		//在 0.8 及以后的版本中写法
+		template: src=templates/foo.j2 dest=/etc/foo.conf
+		//在早期的版本中
+		action: template src=templates/foo.j2 dest=/etc/foo.conf
+
+ 

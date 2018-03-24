@@ -1,0 +1,45 @@
+	//==============playbook示例	
+	---
+	- hosts: webservers
+	  vars:
+		http_port: 80
+		max_clients: 200
+	  remote_user: root
+	  tasks:
+	  - name: ensure apache is at the latest version
+		yum: pkg=httpd state=latest
+	  - name: write the apache config file
+		template: src=/srv/httpd.j2 dest=/etc/httpd.conf
+		notify:
+		- restart apache
+	  - name: ensure apache is running
+		service: name=httpd state=started
+	  handlers:
+		- name: restart apache
+		  service: name=httpd state=restarted		
+
+	//=====================说明
+		你可以为 playbook 中的每一个 play,
+		个别地选择"操作的目标机器是哪些",
+		以哪个用户身份去完成
+		"要执行的步骤(called tasks)".
+	//=====================解读
+		---
+		- hosts: webservers	//一个或多个组或主机的 patterns,以逗号为分隔符,
+		  remote_user: root	//账户名
+							//以前写做 user,
+							//在 Ansible 1.4 以后才改为 remote_user.
+							//主要为了不跟 user 模块混淆
+							//（user 模块用于在远程系统上创建用户）.
+		  sudo: yes			//支持sudo执行
+		  tasks:			
+			 - name: test connection
+			   ping:
+			   remote_user: yourname	//在每一个 task 中,可以定义自己的远程用户:	
+										//这个参数是在 1.4 版本以后添加的.	
+			   sudo: yes				//task中也可以添加sudo
+			   sudo_user: postgres		//你也可以登陆后,sudo 到不同的用户身份,
+										//而不是使用 root:
+										
+										
+										
