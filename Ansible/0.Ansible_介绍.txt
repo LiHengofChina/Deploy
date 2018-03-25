@@ -23,6 +23,10 @@ http://www.ansible.com.cn/
 				//	source ./hacking/env-setup -q
 		. ./hacking/env-setup.fish	//使用 Fish:
 		
+//=========================================
+Playbooks 是 Ansible的配置,部署,编排语言.	
+		于是，对于开发人员来说，
+		Playbooks才是学习的重点
 		
 		
 		

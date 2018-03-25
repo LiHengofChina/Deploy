@@ -1,0 +1,98 @@
+//======================= 起因？？为了更好的组织 Ansible 文件代码及脚本
+//======================= 起因？？为了更好的组织 Ansible 文件代码及脚本
+//======================= 起因？？为了更好的组织 Ansible 文件代码及脚本
+		1).引用 task
+		2).引用 handlers
+		3).引用 play
+	//=======================  include 	 task	
+	1).task include file 由一个普通的 task 列表所组
+		//示例：
+		//定义文件tasks/foo.yml	
+		---
+		# possibly saved as tasks/foo.yml
+
+		- name: placeholder foo
+		  command: /bin/foo
+
+		- name: placeholder bar
+		  command: /bin/bar	
+	
+		//引入语句
+		tasks:
+
+		  - include: tasks/foo.yml	 
+	2).给 include 传递变量。
+		//我们称之为 ‘参数化的 include’。	
+		//==============
+		我们要部署多个 wordpress 实例，
+		我们可将所有的 wordpress task 写在一个 wordpress.yml 文件中， 
+		然后像下面这样使用 wordpress.yml 文件:
+		//==============
+		tasks:
+		  - include: wordpress.yml wp_user=timmy
+		  - include: wordpress.yml wp_user=alice
+		  - include: wordpress.yml wp_user=bob	
+		//============== 在 include 包含的文件中使用
+		{{ wp_user }}
+		//==============
+	    Ansible 1.4 及以后的版本的 include语法
+		tasks:
+		 - { include: wordpress.yml, wp_user: timmy, ssh_keys: [ 'keys/one.txt', 'keys/two.txt' ] }		
+		//==============
+		另一种传递变量到 include files 的语法，//从 1.0 版开始
+			tasks:
+
+			  - include: wordpress.yml
+				vars:
+					wp_user: timmy
+					some_list_variable:
+					  - alpha
+					  - beta
+					  - gamma			
+	//=======================  include 	 handlers	
+	1).Include 语句也可以用在 ‘handlers’ section 中
+		//示例：
+		//你希望定义一个重启 apache 的 handler
+		//你只需要定义一次，
+		//然后便可在所有的 playbook 中使用这个 handler
+		1).创建一个 handlers.yml //内容如下：
+		---
+		# this might be in a file like handlers/handlers.yml
+		- name: restart apache
+		  service: name=apache state=restarted			
+		
+		//然后在你的主 playbook 文件中，
+		//在一个 play 的最后使用 include 包含 handlers.yml:
+		handlers:
+		  - include: handlers/handlers.yml	
+	//=======================  include 	 playbook			
+	1). 将一个 playbook 文件导入另一个 playbook 文件。
+		//这种方式允许你定义一个 顶层的 playbook，
+		//这个顶层 playbook 由其他 playbook 所组成。
+		注意：当你在 playbook 中引用其他 playbook 时，不能使用变量替换。
+		- name: this is a play at the top level of a file
+		  hosts: all
+		  remote_user: root
+
+		  tasks:
+
+		  - name: say hi
+			tags: foo
+			shell: echo "hi..."
+
+		- include: load_balancers.yml
+		- include: webservers.yml
+		- include: dbservers.yml	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

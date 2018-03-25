@@ -1,0 +1,162 @@
+//==============================================角色 Roles
+	通过角色更好的组织play book代码 
+	//======================= 
+	Roles 基于一个已知的文件结构，
+	去自动的加载某些 vars_files、tasks、handlers...
+	基于 roles 对内容进行分组，可以容易地与其他用户分享 roles 。
+	
+//=======================示例：	
+//=======================示例：	
+//=======================示例：	
+	//===============================一个项目的结构如下:
+		site.yml
+		webservers.yml
+		fooservers.yml
+		roles/
+		   common/
+			 files/
+			 templates/
+			 tasks/
+			 handlers/
+			 vars/
+			 defaults/
+			 meta/
+		   webservers/
+			 files/
+			 templates/
+			 tasks/
+			 handlers/
+			 vars/
+			 defaults/
+			 meta/
+	//===============================一个 playbook 如下:
+		---
+		- hosts: webservers
+		  roles:
+			 - common
+			 - webservers
+		//===============================
+		//这个 playbook 为一个角色 ‘x’ 指定了如下的行为：
+		如果 roles/x/tasks/main.yml 存在, 其中列出的 tasks 将被添加到 play 中
+		如果 roles/x/handlers/main.yml 存在, 其中列出的 handlers 将被添加到 play 中
+		如果 roles/x/vars/main.yml 存在, 其中列出的 variables 将被添加到 play 中
+		如果 roles/x/meta/main.yml 存在, 其中列出的 “角色依赖” 将被添加到 roles 列表中 (1.3 and later)	 
+		//==另外
+		所有 copy tasks 可以引用 roles/x/files/ 中的文件，不需要指明文件的路径。
+		所有 script tasks 可以引用 roles/x/files/ 中的脚本，不需要指明文件的路径。
+		所有 template tasks 可以引用 roles/x/templates/ 中的文件，不需要指明文件的路径。
+		所有 include tasks 可以引用 roles/x/tasks/ 中的文件，不需要指明文件的路径		
+	//================================
+	如果 roles 目录下有文件不存在，
+	这些文件将被忽略。
+	比如 roles 目录下面缺少了 ‘vars/’ 目录，
+	这也没关系。
+	//================================roles优先级最高
+	可以在 playbook 中松散地列出 tasks，
+	vars_files 以及 handlers，这种方式仍然可用	
+		如果你在 playbook 中同时使用 roles 和
+		tasks，vars_files 或者 handlers，	roles	 将优先执行。	
+	//================================另一种使用角色的方式
+		使用参数化的 roles，这种方式通过添加变量来实现
+		---
+		- hosts: webservers
+		  roles:
+			- common
+			- { role: foo_app_instance, dir: '/opt/a',  port: 5000 }
+			- { role: foo_app_instance, dir: '/opt/b',  port: 5001 }		
+	//================================为roles设置触发条件	
+		//它的工作方式是：将条件子句应用到 role 中的每一个 task 上。
+		---
+		- hosts: webservers
+		  roles:
+			- { role: some_role, when: "ansible_os_family == 'RedHat'" }		
+	//================================给 roles 分配指定的 tags	
+		//tags 是一种实现部分运行 playbook 的机制
+		---
+		- hosts: webservers
+		  roles:
+			- { role: foo, tags: ["bar", "baz"] }		
+	//================================
+		如果 play 仍然包含有 ‘tasks’ section，
+		这些 tasks 将在所有 roles 应用完成之后才被执行。	
+	//================================			
+		如果你希望定义一些 tasks，
+		让它们在 roles 之前以及之后执行，
+		你可以这样做	
+			
+		---
+
+		- hosts: webservers
+
+		  pre_tasks:
+			- shell: echo 'hello'
+
+		  roles:
+			- { role: some_role }
+
+		  tasks:
+			- shell: echo 'still busy'
+
+		  post_tasks:
+			- shell: echo 'goodbye'		
+	//================================	角色默认变量	
+			角色默认变量允许你为 included roles 或者 dependent roles(见下) 
+			设置默认变量
+			//================================创建默认变量
+			在 roles 目录下添加 defaults/main.yml 文件
+	//================================角色依赖
+			"角色依赖" 使你可以自动地将其他 roles 拉取到现在使用的 role 中。
+			//================================
+			”角色依赖” 保存在 roles 目录下的 meta/main.yml 文件中。
+				//这个文件应包含一列 roles 和 为之指定的参数，示例：
+			---
+			dependencies:
+			  - { role: common, some_parameter: 3 }
+			  - { role: apache, port: 80 }
+			  - { role: postgres, dbname: blarg, other_parameter: 12 }
+			//另一种指定角色依赖的方法：
+			---
+			dependencies:
+			   - { role: '/path/to/common/roles/foo', x: 1 }			
+			//另一种指定角色依赖的方法：通过源码控制仓库或者 tar 文件指定
+			---
+			dependencies:
+			  - { role: 'git+http://git.example.com/repos/role-foo,v1.1,foo' }
+			  - { role: '/path/to/tar/file.tgz,,friendly-name' }		
+			
+			//==========依赖角色	执行顺序
+			“角色依赖” 总是在 role （包含”角色依赖”的role）之前执行，
+			并且是递归地执行。
+			//==========依赖角色	执行次数
+			默认情况下，作为 “角色依赖” 
+			被添加的 role 只能被添加一次，
+				//如果另一个 role 将一个相同的角色列为 “角色依赖” 的对象，
+				//它不会被重复执行。
+				//==但这种默认的行为可被修改，
+				通过添加 allow_duplicates: yes 到 meta/main.yml 文件中。  
+				如：
+				---
+				allow_duplicates: yes
+				dependencies:
+				- { role: tire }
+				- { role: brake }
+				//这样被依赖者先执行，且多次执行
+ 
+			
+		
+			
+			
+			
+
+	
+
+
+	
+	
+	
+	
+	
+	
+		
+			 
+	 

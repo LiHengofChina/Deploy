@@ -1,0 +1,95 @@
+//====================================Playbooks
+	Playbooks 是 Ansible的配置,部署,编排语言.
+	//========================================
+	Playbooks 的格式是YAML 
+ 
+//====================================playbook 结构组成
+//====================================playbook 结构组成
+//====================================playbook 结构组成
+ 
+	1).由一个或多个 "plays" 组成.
+		它的内容是一个以 "plays" 为元素的列表.
+	2).在 "play" 之中,
+		一组机器被映射为定义好的角色.
+		在 ansible 中,play 的内容,被称为 tasks,
+		即任务在基本层次的应用中,
+		一个任务是一个对 ansible 模块的调用,
+	//==============抽象的描述
+		"plays"好似音符,
+		"playbook"好似由"plays"构成的曲谱,
+		通过 playbook,可以编排步骤进行多机器的部署,
+		//==============流程示例：
+		比如在 webservers 组的所有机器上运行一定的步骤,	
+		然后在 database server 组运行一些步骤,
+		最后回到 webservers 组,再运行一些步骤,诸如此类.
+		//==============进一步说
+		"plays" 算是一个体育方面的类比,
+		你可以通过多个 plays 告诉你的系统做不同的事情,
+		不仅是定义一种特定的状态或模型.
+		你可以在不同时间运行不同的 "plays".
+
+//====================================playbook示例
+//====================================playbook示例
+//====================================playbook示例
+---
+- hosts: webservers
+  vars:
+	http_port: 80
+	max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+	yum: pkg=httpd state=latest
+  - name: write the apache config file
+	template: src=/srv/httpd.j2 dest=/etc/httpd.conf
+	notify:
+	- restart apache
+  - name: ensure apache is running
+	service: name=httpd state=started
+  handlers:
+	- name: restart apache
+	  service: name=httpd state=restarted		
+
+//=====================说明
+	你可以为 playbook 中的每一个 play,
+	个别地选择"操作的目标机器是哪些",
+	以哪个用户身份去完成
+	"要执行的步骤(called tasks)".
+//=====================解读
+	---
+	- hosts: webservers	//一个或多个组或主机的 patterns,以逗号为分隔符,
+	  remote_user: root	//账户名
+						//以前写做 user,
+						//在 Ansible 1.4 以后才改为 remote_user.
+						//主要为了不跟 user 模块混淆
+						//（user 模块用于在远程系统上创建用户）.
+	  sudo: yes			//支持sudo执行
+	  tasks:			
+		 - name: test connection
+		   ping:
+		   remote_user: yourname	//在每一个 task 中,可以定义自己的远程用户:	
+									//这个参数是在 1.4 版本以后添加的.	
+		   sudo: yes				//task中也可以添加sudo
+		   sudo_user: postgres		//你也可以登陆后,sudo 到不同的用户身份,
+									//而不是使用 root:
+									
+									
+ //=======================如何运行一个Playbook?
+ //=======================如何运行一个Playbook?
+ //=======================如何运行一个Playbook?
+	
+	ansible-playbook playbook.yml -f 10	//并行级别10
+	
+	
+//========================Ansible-Pull	 配置拉取，而推送?
+//========================Ansible-Pull	 配置拉取，而推送?
+//========================Ansible-Pull	 配置拉取，而推送?
+
+	1).让托管节点从一个 central location 做 check in 获取配置信息
+	2).而不是 推送配置信息到所有的托管节点
+
+	
+		Ansible-pull 是一个小脚
+		它从 git 上 checkout 一个关于配置指令的 repo,
+		然后以这个配置指令来运行 ansible-playbook.
+ 									

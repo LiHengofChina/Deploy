@@ -1,0 +1,107 @@
+//====================标准循环	with_items
+//====================标准循环	with_items
+//====================标准循环	with_items
+	//====写法1
+	- name: add several users
+	  user: name={{ item }} state=present groups=wheel
+	  with_items:
+		 - testuser1
+		 - testuser2	
+	//====写法2
+	with_items: "{{somelist}}"
+	//====不使用循环写法
+	- name: add user testuser1
+	  user: name=testuser1 state=present groups=wheel
+	- name: add user testuser2
+	  user: name=testuser2 state=present groups=wheel	
+	//====写法3
+	- name: add several users
+	  user: name={{ item.name }} state=present groups={{ item.groups }}
+	  with_items:
+		- { name: 'testuser1', groups: 'wheel' }
+		- { name: 'testuser2', groups: 'root' }
+	//====注意：
+		when 和 with_items 
+		`when`声明会为每个条目单独执行
+//====================嵌套循环	with_nested
+//====================嵌套循环	with_nested
+//====================嵌套循环	with_nested
+	//==========写法1
+	- name: give users access to multiple databases
+	  mysql_user: name={{ item[0] }} priv={{ item[1] }}.*:ALL append_privs=yes password=foo
+	  with_nested:
+		- [ 'alice', 'bob' ]
+		- [ 'clientdb', 'employeedb', 'providerdb' ]	
+	//==========写法2	
+	- name: here, 'users' contains the above list of employees
+	  mysql_user: name={{ item[0] }} priv={{ item[1] }}.*:ALL append_privs=yes password=foo
+	  with_nested:
+		- "{{users}}"
+		- [ 'clientdb', 'employeedb', 'providerdb' ]	
+//====================对哈希表使用循环	with_dict	
+//====================对哈希表使用循环	with_dict	
+//====================对哈希表使用循环	with_dict	
+	
+	//==========定义
+		---
+		users:
+		  alice:
+			name: Alice Appleworth
+			telephone: 123-456-7890
+		  bob:
+			name: Bob Bananarama
+			telephone: 987-654-3210	
+	//==========使用			
+		tasks:
+		  - name: Print phone records
+			debug: msg="User {{ item.key }} is {{ item.value.name }} ({{ item.value.telephone }})"
+			with_dict: "{{users}}"	
+//====================对文件列表使用循环	with_fileglob	
+//====================对文件列表使用循环	with_fileglob	
+//====================对文件列表使用循环	with_fileglob	
+	
+		- hosts: all
+		  tasks:
+
+			# first ensure our target directory exists
+			- file: dest=/etc/fooapp state=directory
+
+			# copy each file over that matches the given pattern
+			- copy: src={{ item }} dest=/etc/fooapp/ owner=root mode=600
+			  with_fileglob:
+				- /playbooks/files/fooapp/*							
+					*/with_fileglob 使用相对路径时,
+					Ansible会把路径映射到`roles/<rolename>/files`
+	
+//====================对并行数据集使用循环	with_together
+//====================对并行数据集使用循环	with_together
+//====================对并行数据集使用循环	with_together
+	//============
+	---
+	alpha: [ 'a', 'b', 'c', 'd' ]
+	numbers:  [ 1, 2, 3, 4 ]	
+	//如果你想得到’(a, 1)’和’(b, 2)’之类的集合.可以使用’ with_together ’:
+	//============使用以下
+	tasks:
+		- debug: msg="{{ item.0 }} and {{ item.1 }}"
+		  with_together:
+			- "{{alpha}}"
+			- "{{numbers}}"	
+//====================对子元素使用循环	
+//====================对子元素使用循环	
+//====================对子元素使用循环	
+	//以后用到再实际研究
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

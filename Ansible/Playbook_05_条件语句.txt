@@ -1,0 +1,60 @@
+ //====================When 语句
+ //====================When 语句
+ //====================When 语句
+	用户有可能需要某一个主机越过某一个特定的步骤.
+	例如：
+	1).在某个特定版本系统上少安装一个包，
+	2).或在在满足了文件系统上执行清理操作
+	//==================
+	tasks:
+	  - name: "shutdown Debian flavored systems"
+		command: /sbin/shutdown -t now
+		when: ansible_os_family == "Debian"	
+	//==================在when中使用Jinja2过滤器
+	tasks:
+	  - command: /bin/false
+		register: result
+		ignore_errors: True
+	  - command: /bin/something
+		when: result|failed
+	  - command: /bin/something_else
+		when: result|success
+	  - command: /bin/still/something_else
+		when: result|skipped	
+	//=========基于布尔值来决定一个任务是否被执行:
+		//===========定义变量
+		vars:
+		  epic: true	
+		//===========使用变量
+		//使用方式一：
+		tasks:
+			- shell: echo "This certainly is epic!"
+			  when: epic
+		//使用方式二：	  
+		tasks:
+			- shell: echo "This certainly isn't epic!"
+			  when: not epic	
+		//============
+		如果一个变量不存在,
+				你可以使用Jinja2的
+				`defined`命令跳过或略过
+		tasks:
+			- shell: echo "I've got '{{ foo }}' and am not afraid to use it!"
+			  when: foo is defined		
+		//============`when`he`with_items`				
+		tasks:
+			- command: echo {{ item }}
+			  with_items: [ 0, 2, 4, 6, 8, 10 ]
+			  when: item > 5	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+ 
