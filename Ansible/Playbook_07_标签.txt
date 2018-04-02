@@ -1,0 +1,55 @@
+//========================================标签	tags
+//========================================标签	tags
+//========================================标签	tags
+	如果你有一个大型的 playbook,
+	那能够只运行其中特定部分的配置
+	而无需运行整个 playbook 将会很有用.
+	
+	
+	//====================================场景一
+		如果你只想运行一个非常大的 playbook 中的 “configuration” 
+		和 “packages”,你可以这样做:
+		
+		ansible-playbook example.yml --tags "configuration,packages"
+
+	//====================================场景二
+		如果你只想执行 playbook 中某个特定任务 之外 的所有任务,
+		你可以这样做:
+		
+		ansible-playbook example.yml --skip-tags "notification"
+	//====================================	
+		你同样也可以对 roles 应用 tags:
+		
+		
+		
+//====================================可以打tag的位置		
+	plays 
+	tasks 
+	template
+	roles
+	include 
+	......
+//====================================示例：
+roles:
+  - { role: webserver, port: 5000, tags: [ 'web', 'foo' ] }
+//====================================示例
+  
+  
+- include: foo.yml tags=web,foo
+//====================================示例
+
+- template: src=templates/src.j2 dest=/etc/foo.conf
+      tags:
+         - configuration
+//====================================示例
+tasks:
+
+    - yum: name={{ item }} state=installed
+      with_items:
+         - httpd
+         - memcached
+      tags:
+         - packages
+  
+
+		

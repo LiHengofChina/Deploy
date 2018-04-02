@@ -21,17 +21,8 @@
 		My amp goes to {{ max_amp_value }}
 	//示例2：		
 		template: src=foo.cfg.j2 dest={{ remote_install_path }}/foo.cfg
-	//======================变量的范围：
-		模板中你自动会获取在主机范围之内的所有变量的访问权
-	
-	//=======================Jinja2
-		 Ansible允许你使用Jinja2模板系统在playbook中引用变量.
-		 借助Jinja你能做很多复杂的操作
-		 这意味着根据文件可以生成代码,
-		 或者其它系统工具能够读取Ansible文件.
-		//Jinja2可以用循环和条件语句,
-		//而在playbook中则不行.
-		//Ansible playbook是纯粹的机器解析的YAML.
+
+ 	
 	//=======================YAML陷阱	 
 	//=======================YAML陷阱	 
 	//=======================YAML陷阱	 

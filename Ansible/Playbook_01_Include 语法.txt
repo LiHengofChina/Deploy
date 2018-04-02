@@ -1,26 +1,27 @@
-//======================= 起因？？为了更好的组织 Ansible 文件代码及脚本
-//======================= 起因？？为了更好的组织 Ansible 文件代码及脚本
-//======================= 起因？？为了更好的组织 Ansible 文件代码及脚本
+//======================= 起因？？
+为了更好的组织 Ansible 文件代码及脚本
 		1).引用 task
 		2).引用 handlers
 		3).引用 play
 	//=======================  include 	 task	
 	1).task include file 由一个普通的 task 列表所组
-		//示例：
+		 
 		//定义文件tasks/foo.yml	
-		---
-		# possibly saved as tasks/foo.yml
+		/**
+				---
+				# possibly saved as tasks/foo.yml
 
-		- name: placeholder foo
-		  command: /bin/foo
+				- name: placeholder foo
+				  command: /bin/foo
 
-		- name: placeholder bar
-		  command: /bin/bar	
-	
+				- name: placeholder bar
+				  command: /bin/bar
+		*/
 		//引入语句
-		tasks:
-
-		  - include: tasks/foo.yml	 
+		/**
+				tasks:
+				  - include: tasks/foo.yml
+		*/
 	2).给 include 传递变量。
 		//我们称之为 ‘参数化的 include’。	
 		//==============
@@ -84,15 +85,4 @@
 		- include: webservers.yml
 		- include: dbservers.yml	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+ 

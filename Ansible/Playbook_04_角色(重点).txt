@@ -1,9 +1,12 @@
 //==============================================角色 Roles
 	通过角色更好的组织play book代码 
 	//======================= 
-	Roles 基于一个已知的文件结构，
-	去自动的加载某些 vars_files、tasks、handlers...
-	基于 roles 对内容进行分组，可以容易地与其他用户分享 roles 。
+	Roles 基于一个"已知的文件结构"，
+	去自动的加载某些 
+	vars_files、
+	tasks、
+	handlers...
+	基于 roles 对内容进行分组，可以容易地与其他用户分享 roles 
 	
 //=======================示例：	
 //=======================示例：	
@@ -36,7 +39,7 @@
 			 - common
 			 - webservers
 		//===============================
-		//这个 playbook 为一个角色 ‘x’ 指定了如下的行为：
+		//这个 playbook 为一个角色 'x' 指定了如下的行为：
 		如果 roles/x/tasks/main.yml 存在, 其中列出的 tasks 将被添加到 play 中
 		如果 roles/x/handlers/main.yml 存在, 其中列出的 handlers 将被添加到 play 中
 		如果 roles/x/vars/main.yml 存在, 其中列出的 variables 将被添加到 play 中
@@ -47,15 +50,21 @@
 		所有 template tasks 可以引用 roles/x/templates/ 中的文件，不需要指明文件的路径。
 		所有 include tasks 可以引用 roles/x/tasks/ 中的文件，不需要指明文件的路径		
 	//================================
+	//================================
+	//================================
 	如果 roles 目录下有文件不存在，
 	这些文件将被忽略。
-	比如 roles 目录下面缺少了 ‘vars/’ 目录，
+	比如 roles 目录下面缺少了 'vars/' 目录，
 	这也没关系。
-	//================================roles优先级最高
+	//================================
 	可以在 playbook 中松散地列出 tasks，
 	vars_files 以及 handlers，这种方式仍然可用	
-		如果你在 playbook 中同时使用 roles 和
-		tasks，vars_files 或者 handlers，	roles	 将优先执行。	
+	//================================roles优先级最高
+	//================================roles优先级最高
+	//================================roles优先级最高
+		如果你在 playbook 中同时使用
+		roles 和 tasks，vars_files 或者 handlers，	
+		roles	 将优先执行。	
 	//================================另一种使用角色的方式
 		使用参数化的 roles，这种方式通过添加变量来实现
 		---

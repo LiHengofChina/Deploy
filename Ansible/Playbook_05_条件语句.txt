@@ -1,6 +1,7 @@
- //====================When 语句
- //====================When 语句
- //====================When 语句
+//========================================When 语句
+//========================================When 语句
+//========================================When 语句
+ 
 	用户有可能需要某一个主机越过某一个特定的步骤.
 	例如：
 	1).在某个特定版本系统上少安装一个包，
@@ -46,7 +47,16 @@
 			- command: echo {{ item }}
 			  with_items: [ 0, 2, 4, 6, 8, 10 ]
 			  when: item > 5	
-	
+	//=========使用场景：
+		1).任务中
+				tasks:
+						- shell: echo "This certainly is epic!"
+						  when: epic			
+		2).角色
+				- hosts: webservers
+				  roles:
+					 - { role: debian_stock_config, when: ansible_os_family == 'Debian' }	
+		3).包括语句
 	
 	
 	
