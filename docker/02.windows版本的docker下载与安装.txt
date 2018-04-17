@@ -1,0 +1,29 @@
+//================================学习地址
+http://www.runoob.com/docker/windows-docker-install.html
+//================================官网
+https://docs.docker.com/docker-for-windows/install/#download-docker-for-windows
+//================================下载地址
+http://mirrors.aliyun.com/docker-toolbox/windows/
+
+//=================================第一步：
+
+	安装:DockerToolbox-17.10.0-ce.exe
+
+	//====================================安装完成之后桌面出现：
+	Oracle VM VirtualBox
+	Kitematic (Alpha)
+	Docker Quickstart Terminal
+//=================================第二步：
+	点击 Docker QuickStart 图标来启动 Docker Toolbox 终端。
+	docker -v 查看版本号
+	
+	//=================================
+	docker run hello-world	//
+//=================================第三步：到这里就安装完成了
+	
+Docker 允许你在容器内运行应用程序， 
+使用 docker run 命令来在容器内运行一个应用程序。
+
+输出Hello world
+
+ 
