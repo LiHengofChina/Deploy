@@ -1,6 +1,6 @@
 //================================学习地址
- http://www.runoob.com/docker/docker-hello-world.html
- 
+http://www.runoob.com/docker/docker-hello-world.html
+
 //================================ Hello world
 //================================ Hello world
 //================================ Hello world
@@ -24,9 +24,47 @@
 //================================ 运行交互式的容器	
 //================================ 运行交互式的容器	
 	
+	 docker run -i -t ubuntu:15.10 /bin/bash
+			-t:在新容器内指定一个伪终端或终端。
+			-i:允许你对容器内的标准输入 (STDIN) 进行交互。
+			//===================输入以上命令
+			就可以进入一个窗口并启动一个终端机
+//================================ 启动容器（后台模式）
+//================================ 启动容器（后台模式）
+//================================ 启动容器（后台模式）
+	 1).后台启动命令
+		 docker run -d ubuntu:15.10 /bin/sh -c "while true; do echo hello world; sleep 1; done"
+		 78f928257108503c67444a78f5ebc5d837eb245ea553682cab3c0975b703ed13
+		 //这个长字符串叫做容器ID，
+		 //对每个容器来说都是唯一的，
+		 //我们可以通过容器ID来查看对应的容器发生了什么
+		 
+ 
+	 2).查看容器是否在运行
+		docker ps
+		
+		//结果示例：
+		CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+		734e8f0b9f8d        ubuntu:15.10        "/bin/sh -c 'while..."   5 minutes ago       Up 1 second                             serene_perlman
+		7934b70cc2f1        ubuntu:15.10        "/bin/sh -c 'while..."   5 minutes ago       Up 39 seconds                           blissful_cray
+			
+		CONTAINER ID:容器ID		
+		NAMES:自动分配的容器名称
+		
+	 3).查看容器运行日志
+		docker logs 734e8f0b9f8d	//容器ID
+		docker logs serene_perlman	//容器名称
+	
+	 4).docker停止
+		
+		docker stop 734e8f0b9f8d	//容器ID
+		docker stop blissful_cray	//容器名称
+		
 	
 	
-
+	
+	
+	
 	
 	
 	
