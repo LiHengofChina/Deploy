@@ -1,0 +1,53 @@
+//================================学习地址
+//================================学习地址
+//================================学习地址
+		 镜像使用
+
+		 当运行容器时，使用的镜像如果在本地中不存在，
+		 docker 就会自动从 docker 镜像仓库中下载，
+		 默认是从 Docker Hub 公共镜像源下载。
+		//===================================列出镜像列表
+		//===================================列出镜像列表
+		docker images
+				//列出本地主机上的镜像。
+				/**  示例：
+				表示镜像的仓库源	 镜像的标签				 镜像ID			  镜像创建时间		  镜像大小
+					REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+					
+					hello-world         latest              e38bc07ac18e        9 days ago          1.85kB
+					ubuntu              15.10               9b9cb95443b5        21 months ago       137MB
+					training/webapp     latest              6fae60ef3446        2 years ago         349MB						
+				*/
+				注意：每一条就是一个镜像仓库
+				
+				//用 REPOSITORY:TAG 来定义同一个库中不同镜像的版本
+				//ubuntu:15.10 
+				//ubuntu:14.04
+				
+				//如果不指定 ubuntu，
+				//docker 将默认使用 ubuntu:latest 镜像。
+		//===================================获取一个新的镜像
+		//===================================获取一个新的镜像
+ 
+		docker pull ubuntu:13.10
+			//在本地主机上使用一个不存在的镜像时 Docker 就会自动下载这个镜像。
+			//如果我们想预先下载这个镜像，使用docker pull 
+			
+		
+		//===================================查找镜像：在官网搜索镜像
+		//===================================查找镜像：在官网搜索镜像
+		docker search httpd
+		/**
+			镜像仓库源的名称										 是否docker官方发布
+			NAME			 DESCRIPTION             			STARS	OFFICIAL	AUTOMATED
+			httpd	 		The Apache HTTP Server Project 		1643  	[OK]	
+		*/
+ 
+		
+		
+		
+		
+		
+		
+		
+		

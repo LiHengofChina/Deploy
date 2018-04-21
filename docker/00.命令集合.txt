@@ -1,0 +1,30 @@
+docker -v
+
+docker run hello-world
+docker run ubuntu:15.10 /bin/echo "Hello world"
+//==
+docker run -i -t ubuntu:15.10 /bin/bash
+//==
+docker run -d ubuntu:15.10 /bin/sh -c "while true; do echo hello world; sleep 1; done"
+docker ps
+docker logs ｛容器ID或名字｝
+docker stop ｛容器ID或名字｝
+//==
+docker command --help
+//==
+docker run -d -p 5000:5000 training/webapp python app.py
+docker run -d -P training/webapp python app.py
+docker port ｛容器ID或名字｝
+docker logs -f ｛容器ID或名字｝
+docker top	｛容器ID或名字｝
+docker inspect ｛容器ID或名字｝
+docker stop ｛容器ID或名字｝
+docker start ｛容器ID或名字｝
+docker rm ｛容器ID或名字｝
+//==
+//==
+docker images
+docker pull ubuntu:13.10
+docker pull training/webapp
+
+docker search httpd
