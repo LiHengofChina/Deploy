@@ -1,0 +1,54 @@
+<?xml version="1.0"?>  
+<project name="HelloWorld" default="test" basedir="">  
+    <target name="test">  
+		<property name="name" value="zhangsan" />  
+		<property name="age" value="25" />  
+        <echo message="test echo messsage, basedir=${basedir}" />  
+        <echo message="${name}" />  
+        <echo message="${age}" />  
+		<echo message="java version: ${ant.java.version}" />  
+		<echo message="project name: ${ant.project.name}" />  
+		<echo message="ant file: ${ant.file}" /> 
+		
+		
+		<copy file="a.txt" tofile="build/test.txt" />  
+		
+		<copy todir="build/a">  
+			<fileset dir="a" />  
+		</copy>  		 
+		 
+ 
+		<delete file="build/test.txt" />  
+		<delete dir="build/a" /> 
+		<delete dir="build/dest_dir" /> 
+		 
+		<mkdir dir="build/classes" /> 
+
+		<javac srcdir="src" destdir="build/classes/" />  
+
+		
+		<java classname="Test">  
+			<classpath>  
+				<pathelement path="build/classes/" />  
+			</classpath>  
+		</java>  
+		
+		<jar destfile="Test.jar" basedir="build/classes/">  
+            <manifest>  
+                <attribute name="Main-class" value="Test" />  
+            </manifest>  
+        </jar>  
+		 
+    </target>  
+</project>  
+
+
+
+
+
+
+
+
+
+
+
