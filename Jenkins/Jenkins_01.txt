@@ -1,0 +1,83 @@
+
+//==============================================安装
+1).首先，我们从Jenkins官方网站
+	
+	https://jenkins.io/
+	//虽然Jenkins提供了Windows、Linux、OS X等各种安装程序
+	//但是，这些安装程序都没有war包好使
+	
+	下载最新的war包===>jenkins.war	//war包自带Jetty服务器
+	
+2).启动：
+	java -jar jenkins.war
+
+	//它的war包自带Jetty服务器，
+	//剩下的工作我们全部在浏览器中进行。 
+	
+3).访问：http://localhost:8080/
+
+	//第一次启动Jenkins时，
+	//出于安全考虑，Jenkins会自动生成一个随机的按照口令。
+	//注意控制台输出的口令，复制下来，
+	
+	2c3150b87cb24c91a2367f62159e6291
+
+4).进入安装界面，
+	如果执行默认的安装，
+	Jenkins就自动配置好了Maven、git等常用插件。	
+	//最后，创建一个admin用户，完成安装。	
+	
+	admin/admin
+
+5).用管理员账号登录Jenkins后，第一次使用前，
+	需要在“系统管理”->“Global Tool Configuration”->“Maven”
+	中新增一个Maven，
+	输入一个名字保存
+6).然后，在Jenkins首页选择“新建”，输入名字，
+	选择“构建一个maven项目”：
+
+		
+	//=============常规
+	输入名字
+	openweixin2
+	//=============源码管理
+	GIT(或者SVN)
+		输入地址：https://github.com/michaelliao/openweixin.git
+		选择分支
+		//======================
+		//如果需要口令，在Credentials中添加用户名/口令，或者使用SSH Key。
+	//=============构建触发器
+		//构建触发器指定了触发一次构建的条件
+		//推荐使用最简单的配置“Poll SCM”，它的意思是，
+		//定时检查版本库，
+		//发现有新的提交就触发构建。
+		这种方式对git、
+		SVN等所有版本管理系统都是通用的。
+		
+		日程表填入：
+		* * * * *		//表示每分钟检查一次。
+		*/3 * * * *		//每3分钟检查一次”：
+	//=============构建环境
+		如ant:		选择前面创建的ant 	:ant_liheng
+		如果是maven 选择前面创建的maven :maven_liheng
+		
+		
+	
+	//=============构建
+	//windows batch command
+	//执行shell
+	//执行ant
+	//gradle
+		
+		//比如:maven:
+		//wxapi/pom.xml
+		maven	//Goals  mvn clean package
+				//POM 	 wxapi/pom.xml   //在高级选项中
+		//================================
+	//============================
+	然后就可以开始构建了
+
+
+
+	
+	
