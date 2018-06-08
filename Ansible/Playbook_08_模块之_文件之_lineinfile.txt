@@ -1,0 +1,76 @@
+https://docs.ansible.com/ansible/latest/modules/modules_by_category.html
+
+https://www.cnblogs.com/jackchen001/p/6710233.html
+
+//========================================lineinfile
+//========================================lineinfile
+ 
+	如果批量修改配置文件某一行时
+	在写playbook时 lineinfile 避免不了的。
+
+
+	根据官网说法：
+	lineinfile - Ensure a particular line is in a file, or replace an existing line using a back-referenced regular expression.
+	大意是说，针对文件特殊行，使用后端引用的正则表达式来替换
+
+//========================================示例：替换
+//========================================示例：替换
+- name: seline modify enforcing
+      lineinfile:
+         dest: /etc/selinux/config
+         regexp: '^SELINUX='
+         line: 'SELINUX=enforcing'
+//========================================示例：在匹配内容的前面加一行	 
+//========================================示例：在匹配内容的前面加一行	 
+ - name: httpd.conf modify 8080
+      lineinfile:
+         dest: /opt/playbook/test/http.conf
+         regexp: '^Listen'		//匹配
+         insertbefore: '^#Port' //在这一行的前面加
+         line: 'Listen 8080'	//被加入的内容
+   
+//========================================示例：修改文件内容和权限
+//========================================示例：修改文件内容和权限
+  - name: modify hosts
+      lineinfile:
+         dest: /opt/playbook/test/hosts
+         regexp: '^127\.0\.0\.1'		//这一行内容
+         line: '127.0.0.1 localhosts'	//替换成新行
+         owner: root
+         group: root
+         mode: 0644
+//========================================示例：删除某一行内容
+//========================================示例：删除某一行内容
+
+- name: delete 192.168.1.1
+      lineinfile:
+         dest:  /opt/playbook/test/hosts
+         state: absent
+         regexp: '^192\.' //注意，192.所在的这一行内容都会被删除
+
+//========================================示例：添加一行
+//========================================示例：添加一行
+- name: add a line
+  lineinfile:
+	 dest:  /opt/playbook/test/hosts		//如果这个文件存在
+	 line: '192.168.1.2 foo.lab.net foo'	//直接添加一行
+	 
+//========================================示例：如果匹配到就修改，没有就添加一行
+//========================================示例：如果匹配到就修改，没有就添加一行
+- name: Fully quoted a line
+  lineinfile:
+	 dest: /opt/playbook/test/testfile
+	 state: present
+	 regexp: '^%wheel'	//如果找到这个，就修改//没有就添加
+	 line: '%wheel  ALL=(ALL)       NOPASSWD: ALL'
+
+//========================================相关正则
+//========================================相关正则
+	   
+	regexp: '^Listen'
+	regexp: '^127\.0\.0\.1' 
+	   
+	   
+	   
+	   
+	   
