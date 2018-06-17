@@ -1,7 +1,4 @@
-
-		https://www.cnblogs.com/got-my-way/p/4110394.html
-		https://blog.csdn.net/zmken497300/article/details/53186730
-		
+ 
 //===========================================1:什么是HTTPS？
 //===========================================1:什么是HTTPS？
 	HTTPS其实是有两部分组成：HTTP + SSL / TLS，
