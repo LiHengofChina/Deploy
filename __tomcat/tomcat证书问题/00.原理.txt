@@ -1,0 +1,47 @@
+//====================================Server端
+//====================================Server端
+KeyStore		: 保存"服务端的私钥"	//指：serverKey.keystore
+Trust KeyStore	: 保存"客户端的授权证书"//指：clientCrt.keystore //Trust意思为：信任
+	/**
+	生成服务端私钥
+		keytool -genkey -alias serverkey -keystore serverKey.keystore
+	根据服务端私钥，导出服务端证书
+		keytool -export -alias serverkey -keystore serverKey.keystore -file server.crt
+	将服务端证书，导入到客户端的Trust KeyStore中
+		keytool -import -alias serverkey -file server.crt -keystore serverCrt.keystore
+	//==============
+	流程就是： serverKey.keystore ====> server.crt ====> serverCrt.keystore	   
+	
+	*/
+//====================================Client
+//====================================Client
+KeyStore：		//保存"客户端的私钥"	//指：clientKey.keystore
+Trust KeyStore：//保存"服务端的授权证书"//指：serverCrt.kyestore
+	/**
+	1).keytool -genkey -alias clientkey -keystore clientKey.keystore
+	2).keytool -export -alias clientkey -keystore clientKey.keystore -file client.crt
+	3).keytool -import -alias clientkey -file client.crt -keystore clientCrt.keystore
+	
+	流程就是： clientKey.keystore ====> client.crt ====> clientCrt.keystore	   
+	
+	*/
+	
+//====================================生成物分组
+//====================================生成物分组
+服务端保存：	serverKey.keystore	clientCrt.keystore	
+客户端保存：	clientKey.keystore  serverCrt.kyestore
+//====================================原理1
+//====================================原理1
+客户端采用"clientKey.keystore中的clientkey私钥" 进行 "数据加密" 发送给 server
+服务器端采用"clientCrt.keystore中的client.crt证书(包含了clientkey的公钥)"对数据解密，
+如果解密成功，证明消息来自client，则进行逻辑处理	
+
+//====================================原理1
+//====================================原理1	
+服务采用"serverKey.keystore中的serverkey私钥"进行数据加密，发送给client
+客户端采用"serverCrt.kyestore中的server.crt证书(包含了serverkey的公钥)"对数据解密
+//=====================================各自的作用
+//=====================================各自的作用
+私钥是用来加密的
+公钥是用来解密的 //公钥可以从私钥中导出来
+ 

@@ -1,0 +1,64 @@
+//======================================用SSL进行双向身份验证
+//======================================用SSL进行双向身份验证
+	用SSL进行"双向身份验证"
+		意思就是: 在"客户机"连接"服务器"时
+				  "链接双方"都要对彼此的"数字证书"进行验证
+				  保证这是"经过授权的"才能够连接
+	//注意：是数字证书
+	//==========================一般情况
+	"客户机只验证服务器"的证书，
+	"服务器不验证客户机"的证书
+		"连接网上银行时使用的U盾"就是用来存储"进行双向验证'所需要的客户端证书'"
+//======================================TOMCAT		
+	Tomcat既可以作为"独立的Servlet容器"
+	也可以作为"其他Http服务器附加的'Servlet容器'"。
+	1).非独立模式下
+			tomcat不必配置SSL，
+			由它"从属的http服务器"来实现"和客端的SSL通信"
+			//===
+			而Tomcat和Http服务器之间的通信
+			无须采用加密机制
+			Http服务器将解密后的数据传给Tomcat，
+			并把Tomcat发来的数据加密后传给客户
+	1).独立模式下:Tomcat作为独立的Java Web服务器		
+			则可以根据安全需要
+			为Tomcat配置SSL，
+					
+//======================================为Tomcat配置SSL						
+	1). 准备安全证书。
+		获得安全证书有两种方式：
+		1).一种方式是到权威机构购买
+		2).还有一种方式是创建自我签名的证书
+			//SUN公司提供了制作证书的工具keytool
+			//在JDK 1.4以后的版本中都包含了这一工具
+			示例：
+				keytool -genkeypair -alias "tomcat" -keyalg "RSA" 
+				
+				以上命令将生产:
+					1). '一对非对称密钥'
+					2). '自我签名的证书'
+	2). 配置Tomcat的SSL连接器（Connector）。	
+			
+			在Tomcat的server.xml文件中
+			"配置SSL连接器的代码"连接器
+			示例：
+		<Connector
+			port="443"
+			protocol="HTTP/1.1"
+			SSLEnabled="true"           
+			maxThreads="150" 
+			scheme="https" 
+			secure="true"           
+			clientAuth="false" 
+			sslProtocol="TLS"             
+			keystoreFile="C:\Documents and Settings\XuLiang\.keystore"           
+			keystorePass="SUNCHIS"           
+			ciphers="sunchis" 
+		/> 			
+
+//======================================访问支持SSL的Web站点	
+	由于"访问支持SSL的Web站点"
+	已建立到"绝大多数浏览器和Web服务器程序"中，
+	因此，仅需"在'Web服务器端'安装'服务器证书'"就可以激活SSL功能了。
+	
+ 

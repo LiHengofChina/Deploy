@@ -1,0 +1,99 @@
+
+//======================================服务端，生成SSLServerSocket代码
+//======================================服务端，生成SSLServerSocket代码
+
+SSLContext ctx = SSLContext.getInstance("SSL");
+
+KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+
+KeyStore ks = KeyStore.getInstance("JKS");
+KeyStore tks = KeyStore.getInstance("JKS");
+
+ks.load(new FileInputStream("data/kserver.keystore"), SERVER_KEY_STORE_PASSWORD.toCharArray());
+tks.load(new FileInputStream("data/tserver.keystore"), SERVER_TRUST_KEY_STORE_PASSWORD.toCharArray());
+
+kmf.init(ks, SERVER_KEY_STORE_PASSWORD.toCharArray());
+tmf.init(tks);
+
+ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+
+return (SSLServerSocket) ctx.getServerSocketFactory().createServerSocket(DEFAULT_PORT);
+
+//======================================客户端，生成SSLSocket的代码，大同小异
+//======================================客户端，生成SSLSocket的代码，大同小异
+ 
+//======================================返回一个新的接受任意SSL证书的HttpClient	
+//======================================返回一个新的接受任意SSL证书的HttpClient	
+ 
+
+private DefaultHttpClient getIgnoreSSLHttpClient(int sslPort) throws Exception {
+	httpclient = new DefaultHttpClient();
+	SSLContext sslContext = SSLContext.getInstance("TLS");
+	X509TrustManager tm = new X509TrustManager() {
+		public X509Certificate[] getAcceptedIssuers() {
+			return null;
+		}
+		public void checkClientTrusted(X509Certificate[] certs, String authType) {
+		}
+		public void checkServerTrusted(X509Certificate[] certs, String authType) {
+			System.out.println("server:" + certs[0]);
+		}
+	};
+	sslContext.init(null, new TrustManager[] { tm }, null);
+	SSLSocketFactory sf = new SSLSocketFactory(sslContext);
+	Scheme sch = new Scheme("https", sslPort, sf);
+	httpclient.getConnectionManager().getSchemeRegistry().register(sch);
+	return httpclient;
+}
+//======================================单向验证SSL证书的HttpClien
+//======================================单向验证SSL证书的HttpClien
+
+private DefaultHttpClient getOneWayAuthSSLHttpClient(final String ip, int sslPort) throws Exception {
+	httpclient = new DefaultHttpClient();
+	SSLContext sslContext = SSLContext.getInstance("TLS");
+	X509TrustManager tm = new X509TrustManager() {
+		public X509Certificate[] getAcceptedIssuers() {
+			return new X509Certificate[0];
+		}
+		public void checkClientTrusted(X509Certificate[] certs, String authType) {
+		}
+		public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException {
+			if (certs == null || certs.length == 0)
+				throw new IllegalArgumentException(
+						"null or zero-length certificate chain");
+
+			if (authType == null || authType.length() == 0)
+				throw new IllegalArgumentException(
+						"null or zero-length authentication type");
+			boolean br = false;
+			for (X509Certificate x509Certificate : certs) {
+				String issuer = x509Certificate.getIssuerDN().toString();
+				if (issuer.contains("CN=" + ip)) {
+					br = true;
+					return;
+				}
+			}
+			if (!br) {
+				throw new CertificateException("authen failed!");
+			}
+		}
+	};
+	sslContext.init(null, new TrustManager[] { tm }, null);
+	SSLSocketFactory sf = new SSLSocketFactory(sslContext);
+	Scheme sch = new Scheme("https", sslPort, sf);
+	httpclient.getConnectionManager().getSchemeRegistry().register(sch);
+	return httpclient;
+}
+
+
+
+	
+	
+	
+	
+	
+	
+
+	
+	

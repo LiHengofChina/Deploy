@@ -1,0 +1,26 @@
+
+keytool 工具参数
+-genkey 
+-genkeypair	//生成一对非对称密钥
+-alias 		//指定"密钥对"的别名，该别名是公开的
+-keypass 	//123456(别名密码) 
+-keyalg 	//指定加密算法，如：RSA 加密算法
+-keysize 	//1024 (密钥长度) 
+-validity 	//365(有效期，天单位) 
+-keystore 	//D:/keys/tomcat.keystore 指定生成证书完整路径
+-storepass	//123456(获取keystore信息的密码)	
+-storetype PKCS12
+ 
+ 
+port="443"				//443端口
+protocol="HTTP/1.1"
+SSLEnabled="true"           
+maxThreads="150" 
+scheme="https" 
+secure="true"           
+clientAuth="false" 			//如果设为true//即双向认证
+sslProtocol="TLS"             
+keystoreFile="C:/.keystore"//指定keystore文件的存放位置
+keystorePass="SUNCHIS"     //指定keystore的密码      
+ciphers="sunchis" 
+ 
