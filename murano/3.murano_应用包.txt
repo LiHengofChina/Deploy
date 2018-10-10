@@ -1,0 +1,23 @@
+//================================================Openstack-Murano应用包
+//================================================Openstack-Murano应用包
+	"Murano Package"是Murano部署应用的"基础"，
+	//===============================
+	//===============================
+	Package本身不包含任何的安装包，
+	只是描述了应用的一些基本属性等信息 
+	标准的Murano Package长相如下：
+	[root@localhost Apache]# tree
+	.
+	├── Classes
+	│   └── ApacheHttpServer.yaml
+	├── logo.png
+	├── manifest.yaml
+	├── Resources
+	│   ├── DeployApache.template
+	│   └── scripts
+	│       └── runApacheDeploy.sh
+	└── UI
+		└── ui.yaml
+ 	
+	
+https://blog.csdn.net/iov_aaron/article/details/78491166

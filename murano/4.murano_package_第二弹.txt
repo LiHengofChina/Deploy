@@ -9,12 +9,26 @@ murano package 中包含
 	2). manifest.yaml、logo.png两个文件，
 	3). 其中manifest.yaml是必须包含的文件。
 	//===========
-	Classes
-	Resources
-	UI
-	manifest.yaml	
-	logo.png
+	drwxr-xr-x 2 root root    34 Jul 26 14:55 Classes
+	-rw-r--r-- 1 root root 33332 May  8  2015 logo.png
+	-rw-r--r-- 1 root root  1273 Apr 18  2017 manifest.yaml
+	drwxr-xr-x 3 root root    48 Apr 12  2017 Resources
+	drwxr-xr-x 2 root root    20 Jul 26 14:57 UI
 
+	[root@localhost Apache]# tree
+	.
+	├── Classes
+	│   └── ApacheHttpServer.yaml
+	├── logo.png
+	├── manifest.yaml
+	├── Resources
+	│   ├── DeployApache.template
+	│   └── scripts
+	│       └── runApacheDeploy.sh
+	└── UI
+		└── ui.yaml
+
+ 
 //======================================================================================== manifest.yaml解析
 //======================================================================================== manifest.yaml解析
 //======================================================================================== manifest.yaml解析
