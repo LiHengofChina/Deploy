@@ -3,7 +3,7 @@
 	OpenStack在H版本到K版本的"摸索"中，
 	对"整合容器"的思路"逐步清晰与成熟"，
 	
-	温哥华OpenStack Summit上，
+	温哥华 OpenStack Summit 上，
 	Container/Docker成为一大关注焦点
 	
 	《Exploring Opportunities:Containers and OpenStack》
@@ -31,8 +31,8 @@
 		可以为容器应用的Replication和
 		多读多写提供持久化存储方案。
 	
-//================================= murano简介
-//================================= murano简介
+//================================= murano 的由来
+//================================= murano 的由来
 	容器的出现解决了"服务与应用"的
 	"快速部署与弹性扩展"的问题
 	使得这些年不温不火的"PaaS平台"重新得到了关注。

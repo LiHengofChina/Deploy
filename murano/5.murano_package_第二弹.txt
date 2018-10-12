@@ -38,9 +38,17 @@ murano package 中包含
 	//========================================
 	Format: 		package 版本标记
 	Type: 			package 类型。 目前只有两种类型：Library 和 Application
-	FullName: 		package 名称，通常在定义 Library 时使用
-	Name: 			package 名称，这个名称是一个人性化可读名称
-	Description: 	关于这个 package 的一段儿精简描述
+							1). Library是一个库，不能用来部署
+								 //它主要包涵一些公共的属性和方法
+								 //用于被Application继承和使用
+								 //Murano平台提供了很多library可以直接使用
+							2).	Application才是可以直接使用的包
+							
+	FullName: 		package 名称，通常在定义 Library 时使用		//描述Package的基本属性
+	Name: 			package 名称，这个名称是一个人性化可读名称	//描述Package的基本属性
+	Description: 	关于这个 package 的一段儿精简描述			//描述Package的基本属性
+	
+	Require:		表示 package 之间的依赖
 	Author: 		package 的作者，可以是个人或者公司名称
 	Classes: 		MuranoPL class 列表，定义应用会用到的方法
 	Tags: 			可以说是关于这个 package 的关键字吧，为可选项
@@ -70,19 +78,64 @@ murano package 中包含
 //======================================================================================== Class定义
 //======================================================================================== Class定义
 //======================================================================================== Class定义
+	
+	manifest.yaml中的 Classes 定义了对应的 yaml 文件，
+	这个文件主要存放在 Classes 目录下
+	
+	
 	Class 包含如下几个部分，
 	这个和java中定义一个类的形式是一样的，
 	只不过没有没有接口等概念而已。
 	//========================================
 	//========================================
-	Namespaces: 		命名空间，这个可以将一些引用的package缩写
+	Namespaces: 		命名空间，这个可以将一些引用的package缩写，
+						//使"长类名称"更短
+						/**
+						示例说明：
+							namespace中定义  –> std: io.murano 
+							则在后面中的引用 –> std:Application 相当于是io.murano.Application
+						*/
 	Name: 				Class名，完整的class名由 namespace 中 =项 加上name拼接而成
 	Extends: 			父Class，即继承的父Class
+						// 本上都是继承的io.murano.Application
 	Properties: 		参数，包含如下几个项
-	Contract: 			参数限制
-	Usage: 				什么时候使用
-	Default: 			默认值
+						// 名称: – 参数名称 
+						// 声名类型：
+							//https://muranotest.readthedocs.io/en/latest/articles/murano_pl.html#contract
+						/**
+							$.int()    				//整形
+							$.string() 				//字符串
+							$.string().notNull()    //非空字符串
+							$.bool()   				//布尔类型（true/false） 0会被转为false，其他转为true
+							$.class(ns:ClassName) 	//类
+							$.class(ns:ClassName).notNull()    //非空类
+						*/
+						
+						
+					Contract: 			参数限制
+					Usage: 				什么时候使用，声明作用域，包括如下 
+										/**
+										In 输入参数，该参数只能通过UI设置，
+										   不能在MuranoPL代码里面修改。这是类属性的默认类型。 
+										Out 输出参数，该参数只能在MuranoPL代码里面修改，
+											不能通过UI设置。 
+										InOut 既能由UI设置，
+											  又能在MuranoPL代码修改的参数。 
+											  
+										Const 和In类似，不同的是只能被用户设置一次。 
+										Runtime 和Out类似，不同的是不会被序列化。 	  
+
+										*/
+					Default: 			默认值
+					
 	Workflow/Methods: 	可提供调用的方法
+			(1).Methods  声明的方法及实现
+				默认必须包含的方法： 
+					initialize: 初始化方法,主要是获取依赖的环境信息 
+					deploy: 应用部署的主方法
+					
+					
+					
 	Argumentes: 		参数
 	Body: 				方法执行步骤定义，body由多条Express组成
 	//========================================示例：guacamole应用的Class定义
