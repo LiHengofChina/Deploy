@@ -3,12 +3,19 @@ http://blog.51cto.com/wzlinux/1962230
 //============================================= Nova主要组件
 	Nova由很多"子服务组成"
 		//同时我们也知道OpenStack是一个分布式系统
-		//对于 Nova 这些服务会部署在 两类节点上
+		//对于 "Nova的这些子服务" 会部署在 两类节点上
 		"计算节点和控制节点"
-		1). 计算节点上安装了 Hypervisor 
-			上面运行虚拟机
-			只有 nova-compute 需要放在计算节点上，
-		2). 其他子服务则是放在控制节点上的。	
+		1). 计算节点
+			1).安装 Hypervisor 管理程序
+					//Hypervisor 泛指管理程序，管理虚拟机的管理程序
+			2). 上面运行虚拟机	
+					//PS:就是说创建的虚拟机和容器位于这种节点上面
+			3). 只有nova-compute放在计算节点上
+					//意思是nova-compute子服务会安装在上面
+			
+		2). 控制节点
+			其他子服务则是放在控制节点上的
+				
 
 	//============================主要组件
 	//============================主要组件
@@ -24,38 +31,56 @@ http://blog.51cto.com/wzlinux/1962230
 				OpenStack Compute API，
 				Amazon EC2 API，
 				Admin API
-	2).nova-api-metadata	
+	2).nova-api-metadata
+			nova-api-metadata主要接收虚拟机的元数据请求，
+			通常在带有nova-network的多主机模式下才会使用。
 	3).nova-compute	//计算节点
+			nova-compute在计算节点上运行，
+			它是一个工作进程(worker deamon)	
+			通过hypervisor APIs来创建或者关闭虚拟机实例，
+			这个过程相当的复杂
+			总的来说，它从队列服务接收消息之后，
+			然后启动虚拟机并在数据库中更新状态。
 	4).nova-placement-api
+			主要追踪每个提供者的库存和使用量情况，
+			比如追踪计算节点的资源，
+			存储池的使用情况以及IP的分配情况等等。
 	5).nova-scheduler	
+			如果有多个实体都能够完成任务，
+			那么通常会有一个scheduler负责从这些实体中挑选出一个最合适的来执行操作，
+			nova-scheduler就是处理队列中的请求，
+			然后会根据计算节点当时的资源使用情况
+			选择一个最合适的计算节点来运行虚机，
+			会通过消息中间件rabbitMQ向选定的计算节点发出launch instance的命令。	
 	6).nova-conductor
-	7).nova-cert 
+			nova-compute需要获取和更新数据库中instance的信息，
+			但nova-compute并不会直接访问数据库，
+			而是通过nova-conductor实现数据的访问。
+			//在巨大的集群中，nova-conductor可以水平扩展，
+			//但是不要部署在计算节点上。
+	7).nova-cert
+			一个Nova的证书服务，提供 x509 证书支持，用于兼容AWS。
 	8).nova-consoleauth
+			负责对访问虚机控制台请亲提供Token认证。
 	9).nova-novncproxy
+	        提供基于Web浏览器的VNC访问
 	10).nova-spicehtml5proxy
+			提供基于HTML5浏览器的SPICE访问。
 	11).nova-xvpvncproxy
+			 提供基于Java客户端的VNC访问。
 	12).The queue
+			在前面我们了解到Nova包含众多的子服务，
+			这些子服务之间需要相互协调和通信，为解耦各个子服务，
+			Nova通过Message Queue作为子服务的信息中转站，
+			所以在架构图上我们看到了子服务之间没有直接的连线，
+			它们都通过Message Queue联系。
 	13).SQL database
+			Nova会存放一些云平台的状态数据在数据库中，
+			比如可用虚拟机类型、虚拟机是否使用中、
+			网络的使用状态以及项目等。
 
-//=============================================Nova各组件如何协调工作
-//=============================================Nova各组件如何协调工作
-	1). 客户（可以是OpenStack最终用户，也可以是其他程序）向API（nova-api）
-		发送请求："帮我创建一个虚机"；
-	2). API对请求做一些必要处理后，
-		向Messaging（RabbitMQ）发送了一条消息："让Scheduler创建一个虚机"；
-	3).	Scheduler（nova-scheduler）从Messaging获取到API发给它的消息，
-		然后执行调度算法，
-		从若干计算节点中选出节点 A ；
-	4). Scheduler向Messaging发送了一条消息：
-		"在计算节点 A 上创建这个虚机"
-	5). 计算节点 A 的Compute（nova-compute）
-		从Messaging中获取到Scheduler发给它的消息，
-		然后在本节点的Hypervisor上启动虚机；
-	6). 在虚机创建的过程中，Compute如果需要查询或更新数据库信息，
-		会通过Messaging向Conductor（nova-conductor）发送消息，
-		Conductor负责数据库访问。
-		
-http://blog.51cto.com/wzlinux/1962230
+ 
+
 
 
 

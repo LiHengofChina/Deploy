@@ -1,0 +1,10 @@
+
+四、Nova支持的Hypervisor
+
+  nova-compute运行在计算节点上，
+  通过插件形式对Hypervisor进行管理，
+  当前的版本(Ocata)，对各种主流的虚拟化平台都提供了支持，
+  典型地通过XenAPI/vCenter API/Libvirt等所提供的插件接口执行虚拟机的创建、终止、
+  迁移等生命周期管理。
+  
+  

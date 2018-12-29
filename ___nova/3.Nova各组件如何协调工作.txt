@@ -1,0 +1,20 @@
+
+//=============================================Nova各组件如何协调工作
+//=============================================Nova各组件如何协调工作
+	1). 客户（可以是OpenStack最终用户，也可以是其他程序）向API（nova-api）
+		发送请求："帮我创建一个虚机"；
+	2). API对请求做一些必要处理后，
+		向Messaging（RabbitMQ）发送了一条消息："让Scheduler创建一个虚机"；
+	3).	Scheduler（nova-scheduler）从Messaging获取到API发给它的消息，
+		然后执行调度算法，
+		从若干计算节点中选出节点 A ；
+	4). Scheduler向Messaging发送了一条消息：
+		"在计算节点 A 上创建这个虚机"
+	5). 计算节点 A 的Compute（nova-compute）
+		从Messaging中获取到Scheduler发给它的消息，
+		然后在本节点的 Hypervisor 上启动虚机；
+			//在本节点创建虚拟机
+	6). 在虚机创建的过程中，Compute如果需要查询或更新数据库信息，
+		会通过Messaging向Conductor（nova-conductor）发送消息，
+		Conductor负责数据库访问。
+		
