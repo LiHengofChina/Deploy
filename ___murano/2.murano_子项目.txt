@@ -1,0 +1,43 @@
+//=================================murano相关的几个项目:
+//=================================murano相关的几个项目:
+(1). murano是主要的存储库，
+	 包含 Murano API server, 
+	 Murano engine and MuranoPL代码；
+	 //主服务器
+	 
+(2). murano-agent运行在vm上，
+	 并执行安装应用部署；
+
+	 
+(3). murano-dashboard是murano的UI；
+	 //界面
+
+
+(4). python-muranoclient客户端。
+
+
+//===============安装过程省略......
+http://www.sohu.com/a/125403079_468741
+
+
+创建murano数据库，
+并设置数据库的用户名密码都为  murano
+		//数据库账号和密码都为 murano
+创建user和role
+
+取代码安装
+
+创建配置文件存放目录
+
+生成默认murano.conf文件（环境需安装tox和gcc等工具）
+
+配置文件
+
+安装muranoclient
+
+更新murano数据库
+
+创建service和endpoint
+
+创建服务后端
+
