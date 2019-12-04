@@ -1,4 +1,7 @@
- 1). 创建一个package.json文件
+https://segmentfault.com/a/1190000006178770
+
+
+1). 创建一个package.json文件
 	//这是一个标准的npm说明文件
 	//当前项目的依赖模块，自定义的脚本任务等等
 	//使用npm init命令可以自动创建这个package.json文件
@@ -90,21 +93,14 @@ npm run build  //其它的必须要加run //开始打包
 		inline: true//实时刷新
     }
 	 
-	"server": "webpack-dev-server --open"
+	"server": "webpack-dev-server --open chrome"
 	
-	npm run server chrome
+	npm start  		//打包
+	npm run build 	//打包
+	npm run server  //启动服务器
 
-//==============================
-
-
-从这里开始 2019年12月4日22:7:42
-
-https://segmentfault.com/a/1190000006178770
-
-https://www.webpackjs.com/
-
-webpack_demo
-
+ 
+ 
 
 
 
