@@ -59,6 +59,13 @@ https://segmentfault.com/a/1190000006178770
 								loader: 'style!css?modules' 
 									//?modules 只是配置上多加一个这个，就表示，所有CSS不会相互污染了
 							}
+							 {
+								loader: "css-loader",
+								options: {
+								    modules: true
+								}
+							  }
+							
 						*/
 
 				3).  CSS预处理器
