@@ -118,5 +118,39 @@ Hot Module Replacement
 		chunkFilename: "[id].css"
 	}),  
 
+//===================================================== 常见插件（六）合并插件  webpack-merge	//TODO 未测试
+//===================================================== 常见插件（六）合并插件  webpack-merge //TODO 未测试
+
+const webpackMerge = require('webpack-merge');
+const commonConfig = require('./webpack.common.js'); 
+
+module.exports = function (options) {
+    return webpackMerge(
+		commonConfig({ env: ENV }), //第一部分
+		{//第二部分
+			entry: {
+				businessAll: ***.js,
+				business_themes: [***.js]
+			},
+			mode: 'development',
+			devtool: 'inline-source-map',
+			output: {},
+			plugins: []
+		}
+	);
+}
+
+//===================================================== 常见插件（七）复制 插件   //TODO 未测试
+//===================================================== 常见插件（七）复制 插件   //TODO 未测试
+npm install --save-dev copy-webpack-plugin
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+new CopyWebpackPlugin([
+  {
+    from: path.resolve(__dirname, 'static'),
+    to: path.resolve(__dirname, 'pages/static'),
+    ignore: ['.*']
+  }
+])
+
 
 
