@@ -84,7 +84,17 @@ Hot Module Replacement
 		})
 		new ExtractTextPlugin("style.css")	
 
+//================================================ 常见插件（四）清理插件
+//================================================ 常见插件（四）清理插件
 
+1). 安装 
+     cnpm install clean-webpack-plugin --save-dev
+ 
+ 
+2). 产生对象
+
+	const {CleanWebpackPlugin} = require('clean-webpack-plugin');	//解构的方式
+	new CleanWebpackPlugin()
 
 
 				
