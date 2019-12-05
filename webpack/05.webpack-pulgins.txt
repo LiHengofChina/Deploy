@@ -60,20 +60,17 @@ Hot Module Replacement
 
 
 
-//================================================ 常见插件（三）OccurenceOrder 和 UglifyJS plugins
-//================================================ 常见插件（三）OccurenceOrder 和 UglifyJS plugins
+//================================================ 常见插件（三） OccurenceOrder 和 UglifyJS plugins
+//================================================ 常见插件（三） OccurenceOrder 和 UglifyJS plugins
 	
 	OccurenceOrderPlugin : (内置)//为组件分配ID，
 						   //通过这个插件webpack可以分析和优先考虑使用最多的模块，
 						   //并为它们分配最小的ID
 	UglifyJsPlugin：   	   //压缩JS代码；
-	ExtractTextPlugin：    //分离CSS和JS文件	
 	1).
 		npm install --save-dev uglifyjs-webpack-plugin
-		npm install --save-dev mini-css-extract-plugin
 	2).	
 		const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-		const ExtractTextPlugin = require('mini-css-extract-plugin');
 
 	3).
 		new webpack.optimize.OccurrenceOrderPlugin(),
@@ -82,7 +79,6 @@ Hot Module Replacement
 				compress: false
 			}
 		})
-		new ExtractTextPlugin("style.css")	
 
 //================================================ 常见插件（四）清理插件
 //================================================ 常见插件（四）清理插件
@@ -98,3 +94,29 @@ Hot Module Replacement
 
 
 				
+
+//================================================ 常见插件（五）css提取插件
+//================================================ 常见插件（五）css提取插件
+
+1).   npm install --save-dev mini-css-extract-plugin
+
+2). 
+	  const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+3).
+	 {
+		  test: /\.css$/,
+		  use: [
+				MiniCssExtractPlugin.loader,
+				"css-loader"
+			]
+	 }
+4).
+
+	new MiniCssExtractPlugin({
+		filename: "[name].css",
+		chunkFilename: "[id].css"
+	}),  
+
+
+
