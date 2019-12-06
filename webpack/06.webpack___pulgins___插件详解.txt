@@ -135,12 +135,13 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 		chunkFilename: "[id].css"
 	}),  
 
-//===================================================== 常见插件（六）合并插件  webpack-merge	//TODO 未测试
-//===================================================== 常见插件（六）合并插件  webpack-merge //TODO 未测试
+//===================================================== 常见插件（六）合并插件  webpack-merge 
+//===================================================== 常见插件（六）合并插件  webpack-merge 
 
 const webpackMerge = require('webpack-merge');
 const commonConfig = require('./webpack.common.js'); 
 
+// 把两部分配置合到一起
 module.exports = function (options) {
     return webpackMerge(
 		commonConfig({ env: ENV }), //第一部分
