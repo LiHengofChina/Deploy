@@ -111,6 +111,8 @@ npm run build  //其它的必须要加run //开始打包
 		devtool: ''
 	2).	 
 		"build": "NODE_ENV=production webpack --config ./webpack.production.config.js --progress"
+		//这个 NODE_ENV 实际上设置的是: process.env.NODE_ENV 的值
+		//console.log(process.env.NODE_ENV)
 
 (11).  让文件名和文件内容是匹配的，方便浏览器准确的缓存
 	webpack可以把一个哈希值添加到打包的文件名中，（内容改变，名称相应改变）
