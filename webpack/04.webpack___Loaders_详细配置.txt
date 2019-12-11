@@ -105,7 +105,10 @@ CSS处理平台-PostCSS，它可以让CSS实现更多的功能
 	Babel其实是一个编译JavaScript的平台，
 	它可以编译代码帮你达到以下目的：
 
-
+	让你能使用最新的JavaScript代码（ES6，ES7...），
+	而不用管新标准是否被当前使用的浏览器完全支持；
+	让你能使用基于JavaScript进行了拓展的语言，
+	比如React的JSX；
 
 
  
