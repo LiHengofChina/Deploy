@@ -193,7 +193,7 @@ plugins: [
             filename: "css/[name].css",////都提到build目录下的css目录中
             chunkFilename: "[id].css"
         }),
-      new OptimizeCssAssetsPlugin()
+      new OptimizeCssAssetsPlugin()//优化CSS文件
 ]
  
 //===================================================== 常见插件（十） chunk ID 修改
