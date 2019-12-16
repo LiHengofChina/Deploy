@@ -219,4 +219,25 @@ NamedChunksPlugin：把chunk id变为一个字符串标识符
 NamedModulesPlugin  	//基于文件名的哈希值命名
 HashedModuleIdsPlugin 	//基于文件内容的哈希值命名
 
+//===================================================== 常见插件（十二）公共JS打包方法
+//===================================================== 常见插件（十二）公共JS打包方法
+CommonsChunkPlugin
+
+	module.exports = {
+	  entry: {
+		'app': './index.js',			//入口一
+		'vender': ['left-pad', 'jsonp'] //入口二，命名为vender，它里面包涵
+										//'left-pad'和'jsonp'两部分
+	  },
+	  output: {
+		filename: '[name].[chunkHash].js',
+		path: path.resolve(__dirname, 'build')
+	  },
+	  plugins:[
+			 new webpack.optimize.CommonsChunkPlugin({
+				name: ['vender', 'manifest'], //指定vender下的内容打包为第三方的JS
+				minChunks: Infinity,
+			})
+	  ]
+	};
 
