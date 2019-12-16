@@ -223,6 +223,12 @@ HashedModuleIdsPlugin 	//基于文件内容的哈希值命名
 //===================================================== 常见插件（十二）公共JS打包方法
 //===================================================== 常见插件（十二）公共JS打包方法
 CommonsChunkPlugin
+ 主要是用来提取第三方库和公共模块，
+	//避免加载的bundle文件或者按需加载的bundle文件体积过大，
+	//从而导致加载时间过长
+	//JS CSS等等	
+	
+webpack 4 移除 CommonsChunkPlugin，取而代之的是两个新的配置项（optimization.splitChunks 和 optimization.runtimeChunk）	
 
 	module.exports = {
 	  entry: {
