@@ -36,6 +36,18 @@
             })
 	]							
  
+ 	/**
+		htmlWebpackPlugin
+			是html-webpack-plugin插件在生成html文件过程中产生的数据，
+			这些数据对html模板文件是可用的
+
+
+		htmlWebpackPlugin.files		
+				//此次html-webpack-plugin插件配置的chunk和抽取的css样式。
+		htmlWebpackPlugin.options
+				//传递给插件的配置项，
+				//具体的配置项如上面插件配置项小节所描述的。
+ 	*/
 //================================================ 常见插件（二）热部署
 //================================================ 常见插件（二）热部署
 
