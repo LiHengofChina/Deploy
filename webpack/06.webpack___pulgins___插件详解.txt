@@ -92,6 +92,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 //================================================ 常见插件（三） OccurenceOrder 和 UglifyJS plugins
 //================================================ 常见插件（三） OccurenceOrder 和 UglifyJS plugins
 	
+	//调整模块的打包顺序，用到次数更多的会出现在文件的前面
 	OccurenceOrderPlugin : (内置)//为组件分配ID，
 						   //通过这个插件webpack可以分析和优先考虑使用最多的模块，
 						   //并为它们分配最小的ID
@@ -101,7 +102,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 	2).	
 		const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-	3).
+	3).	
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new UglifyJsPlugin({
 			uglifyOptions: {
