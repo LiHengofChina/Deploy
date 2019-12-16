@@ -11,7 +11,30 @@ externals配置选项，将指定的内容排除在构建的vendor中，
 //但是，指定的内容需要出现在用户环境中。	//就是开发环境可以使用
 
 
-//====================================
+//==================================== externals 配置数据类型(用法)
+
+string, array, object, function, regex
+string, array, object, function, regex
+
+//==================================== externals 配置数据类型(用法)
+
+externals支持模块上下文的方式
+global - 
+			//外部 library 能够作为全局变量使用。
+			//用户可以通过在 script 标签中引入来实现。
+			//这是 externals 的默认设置。
+commonjs - 
+			//用户(consumer)应用程序可能使用 CommonJS 模块系统，
+			//因此外部 library 应该使用 CommonJS 模块系统，
+			//并且应该是一个 CommonJS 模块。
+commonjs2 - 
+			//类似上面几行，但导出的是 module.exports.default。
+amd - 
+			//类似上面几行，但使用 AMD 模块系统。
+
+//==================================== 
+
+
 示例：
 	1). 在index.html中引入CDN的资源react全家桶之类的资源
 		//
