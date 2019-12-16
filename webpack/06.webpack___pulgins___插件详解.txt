@@ -254,3 +254,12 @@ webpack 4 移除 CommonsChunkPlugin，取而代之的是两个新的配置项（
 	  ]
 	};
 
+//===================================================== 常见插件（十三）LoaderOptionsPlugin
+//===================================================== 常见插件（十三）LoaderOptionsPlugin
+  new webpack.LoaderOptionsPlugin({
+    options: {
+      postcss: function () {	//针对  postcss 平台 
+        return [precss, autoprefixer];//autoprefixer 为CSS代码自动添加适应不同浏览器的CSS前缀。
+      }
+    }
+
