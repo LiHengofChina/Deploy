@@ -127,6 +127,11 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 //================================================ 常见插件（五）css提取插件
 //================================================ 常见插件（五）css提取插件
 
+	将CSS提取为独立的文件的插件，
+		//对每个包含css的js文件都会创建一个CSS文件，
+		//支持按需加载css和sourceMap
+		//支持按需加载css和sourceMap
+
 1).   npm install --save-dev mini-css-extract-plugin
 
 2). 
