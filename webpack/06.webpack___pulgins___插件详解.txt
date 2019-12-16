@@ -263,3 +263,22 @@ webpack 4 移除 CommonsChunkPlugin，取而代之的是两个新的配置项（
       }
     }
 
+
+
+//===================================================== ProvidePlugin  插件
+//===================================================== ProvidePlugin  插件
+自动加载模块，而不必到处 import 或 require 。
+
+示例：
+1). 要自动加载 jquery，我们可以将两个变量都指向对应的 node 模块：
+	 new webpack.ProvidePlugin({
+		  $: 'jquery',
+		  jQuery: 'jquery'
+	 })
+2). 然后在我们任意源码中：
+	 // in a module
+	 $('#item'); // <= 起作用
+	 jQuery('#item'); // <= 起作用
+	 // $ 自动被设置为 "jquery" 输出的内容
+	 
+
