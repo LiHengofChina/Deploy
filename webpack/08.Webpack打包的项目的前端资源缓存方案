@@ -24,7 +24,7 @@
 	module.exports = {
 	  entry: {
 		'app': './index.js',			//入口一
-		'vender': ['left-pad', 'jsonp'] //入口二
+		'vender': ['left-pad', 'jsonp'] 	//入口二，命名为vender，它里面包涵//'left-pad'和'jsonp'两部分
 	  },
 	  output: {
 		filename: '[name].[chunkHash].js',
