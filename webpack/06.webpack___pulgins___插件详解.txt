@@ -78,8 +78,7 @@ const webpackDevMiddleware = require("webpack-dev-middleware");
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
 
-//const express = require("express"); 		//express中使用方式
-//app.use(webpackHotMiddleware(compiler));	//express中使用方式
+
 
 
 
@@ -195,16 +194,12 @@ module.exports = {
   },
 };
 
-//===================================================== 常见插件（九）压缩css插件
-//===================================================== 常见插件（九）压缩css插件
+//===================================================== 常见插件（九）优化css插件
+//===================================================== 常见插件（九）优化css插件
 
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 plugins: [
-      new MiniCssExtractPlugin({
-            filename: "css/[name].css",////都提到build目录下的css目录中
-            chunkFilename: "[id].css"
-        }),
       new OptimizeCssAssetsPlugin()//优化CSS文件
 ]
  
