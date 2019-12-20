@@ -66,12 +66,6 @@ Hot Module Replacement
 			new webpack.HotModuleReplacementPlugin()//热加载插件
 		]
 
-	3).
-		npm install --save-dev babel-plugin-react-transform
-		npm install --save-dev react-transform-hmr
-
-
-
 //================================================ 常见插件（二）热部署2
 //================================================ 常见插件（二）热部署2
 
