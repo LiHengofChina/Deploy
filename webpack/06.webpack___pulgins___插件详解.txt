@@ -254,6 +254,11 @@ webpack 4 移除 CommonsChunkPlugin，取而代之的是两个新的配置项（
 
 
 
+//oader-options-plugin 和其他插件不同，它用于将 webpack 1 迁移至 webpack 2
+//就是说 webpack 2 后，所有的loader 的 options(配置项)不全局共享，
+//如果想全局共享 ，就可以使用这个插件。
+通过这个插件配置全局/共享的 loader 配置,使所有的 loader 都能收到这些配置。
+
 //===================================================== 常见插件（十四）ProvidePlugin  插件
 //===================================================== 常见插件（十四）ProvidePlugin  插件
 自动加载模块，而不必到处 import 或 require 。
