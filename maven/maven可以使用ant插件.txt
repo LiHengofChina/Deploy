@@ -1,0 +1,15 @@
+http://blog.csdn.net/kongxx/article/details/6998965
+
+				<!-- ant²å¼þ -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>1.8</version>
+				</plugin>
+				
+				
+				
+Description	Resource	Path	Location	Type
+Failure to transfer org.apache.maven.plugins:maven-resources-plugin:pom:3.1.0 from https://repo.maven.apache.org/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of central has elapsed or updates are forced. Original error: Could not transfer artifact org.apache.maven.plugins:maven-resources-plugin:pom:3.1.0 from/to central (https://repo.maven.apache.org/maven2): The operation was cancelled.	pom.xml	/herolist	line 1	Maven Configuration Problem
+
+
