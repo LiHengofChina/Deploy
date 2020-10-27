@@ -1,0 +1,57 @@
+
+//==================================== origin
+//==================================== origin
+	/**
+	origin 就是一个名字，
+	它是在你clone一个托管在Github上代码库时，
+	git为你默认创建的指向这个远程代码库的标签，
+	origin指向的是repository，
+	master只是这个repository中默认创建的第一个branch。
+	
+	当你git push的时候因为origin和master都是默认创建的，
+	所以可以这样省略	
+	*/
+
+	
+//==================================== 怎么使用其它名字替换这个
+//==================================== 怎么使用其它名字替换这个
+	https://www.zhihu.com/question/27712995/answer/660393268
+
+	使用git，一般的步骤是这样的：
+	
+	1). 在本地建立git版本库：
+		在本地工程目录(如: ~/myProject)下执行: git init
+	2). 建立和连接远程仓库。
+		如果使用github，
+		那么就是新建 Repository，
+		
+		名称叫做myProject，
+		和本地仓库一致。
+		这时候，github告诉你，可以通过
+	
+		git remote add origin git@github.com:imki911/myProject.git
+		
+		添加远程仓库，
+		origin就是这时候出现的，
+		可以看成是git@github.com:imki911/myProject.git的别名。
+		
+		所以你完全可以不按照github上的指引，
+		把'origin'改成阿猫阿狗(aMao/aGou)，
+		通过运行以下命令添加远程仓库，名称叫做'aMao'：
+		
+		git remote add aMao git@github.com:imki911/myProject.git
+		
+		
+		git push -u aMao master
+		来push了，和'origin'完全没有一点关系。
+		//====================================
+		//====================================
+		
+		当然，如果你的本地版本库是从远程仓库git clone而来，
+		git会默认把这个远程仓库的地址叫做origin.  
+		这时候依旧可以通过 git remote  add 把远程仓库的名称改成'aGou'，
+		然后就可以使用这个名称来 push了：git push -u aGou master
+		
+ 
+		
+ 

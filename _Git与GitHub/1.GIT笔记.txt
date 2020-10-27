@@ -1,0 +1,28 @@
+//-------------Git 安装	
+	Mac：	 https://sourceforge.net/projects/git-osx-installer/
+	Windows：https://git-for-windows.github.io/
+	Linux：	 apt-get install git
+//-------------常用git命令
+git status 				//查看当前文件夹的状态 git s
+git init   				//初始化 git 仓库 会产生一个.get文件夹
+git add a.md			//添加到文件缓存区，准备提交		
+git commit -m '备注'	//提交 git c
+git log					//提交日志
+//配置()
+git config --global user.email "375461826@qq.com"
+git config --global user.name "李恒"
+git config --global core.quotepath false //中文文件名显示
+//-----------------------分支
+查看分支的情况(结果中有*号，表示你当前处的位置)
+git branch		//查看分支,*号表示你当前处的位置,master默认
+git branch a 	//创建分支  git br
+git checkout a	//切换分支	git co
+git merge a 	//合并代码,切换到 master,理解为 master 吸收 a 的代码
+git branch -d a //合并后的删除
+git branch -D a	//强制删除(在没有进行代码合并的时候)
+//-----------------------标记
+git tag v1.0 		//新建立标记
+git tag				//查看标记
+git checkout v1.0 	//切换标记	 
+//-----------------------Explore==>Trending 
+ 

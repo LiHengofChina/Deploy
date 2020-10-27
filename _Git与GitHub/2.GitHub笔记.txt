@@ -1,0 +1,197 @@
+//=======================什么是 GitHub
+	确切的说 GitHub 是一家公司，位于旧金山
+	主要提供基于git的版本托管服务
+//=======================什么是GIT
+	Git 是一款免费、开源的分布式版本控制系统，
+	他是著名的 Linux 发明者 Linus Torvalds 开发的。
+//=======================GIT与GITHUB的关系
+
+//--------注册GITHUB
+	https://github.com/LiHengofChina
+	账号：	LiHengofChina
+	密码： 	pvpv**
+//--------主页面
+	右上角 Your profile进入你的主页
+	followers 关注我的人
+	starred 我送出的start数
+	following 我关注的人
+	popular repositories我的一些流行开源项目
+	repositories contributed to 我近期做过贡献的项目
+	
+	一个小方格代表一天
+//--------
+	GitHub 基本概念	
+//------Repository
+	仓库的意思，即你的项目，
+	你想在 GitHub 上开源一个项目，那就必须要新建一个 Repository ，
+	如果你开源的项目多了，你就拥有了多个 Repositories 。
+	//------Code
+	
+	//------Issue
+	问题的意思，举个例子，
+	就是你开源了一个项目，
+	别人发现你的项目中有bug，
+	或者哪些地方做的不够好，他就可以给你提个 Issue ，
+	即问题，提的问题多了，也就是 Issues ，
+	然后你看到了这些问题就可以去逐个修复，
+	修复ok了就可以一个个的 Close 掉。
+			//
+	//------Star
+	这个好理解，
+	就是给项目点赞，
+	但是在 GitHub 
+	上的点赞远比微博、
+	知乎点赞难的多，
+	如果你有一个项目获得100个star都算很不容易了！
+	//------Fork
+	这个不好翻译，如果实在要翻译我把他翻译成分叉，
+	什么意思呢？你开源了一个项目，
+	别人想在你这个项目的基础上做些改进，
+	然后应用到自己的项目中，
+	这个时候他就可以 Fork 你的项目，
+	这个时候他的 GitHub 主页上就多了一个项目，
+	只不过这个项目是基于你的项目基础
+	（本质上是在原有项目的基础上新建了一个分支，
+	分支的概念后面会在讲解Git的时候说到），
+	他就可以随心所欲的去改进，
+	但是丝毫不会影响原有项目的代码与结构。
+	//------Pull Request
+	发起请求，这个其实是基于 Fork 的，
+	还是上面那个例子，
+	如果别人在你基础上做了改进，
+	后来觉得改进的很不错，
+	应该要把这些改进让更多的人收益，
+	于是就想把自己的改进合并到原有项目里，
+	这个时候他就可以发起一个 Pull Request（简称PR） ，
+	原有项目创建人就可以收到这个请求，
+	这个时候他会仔细review你的代码，
+	并且测试觉得OK了，就会接受你的PR，
+	这个时候你做的改进原有项目就会拥有了。
+	//------Watch 相当于关注
+	这个也好理解就是观察，
+	如果你 Watch 了某个项目，
+	那么以后只要这个项目有任何更新，
+	你都会第一时间收到关于这个项目的通知提醒。
+	//------Gist
+	有些时候你没有项目可以开源，
+	只是单纯的想分享一些代码片段，
+	那这个时候 Gist 就派上用场了！
+	//------Projects
+	这个是最新 GitHub 改版新增的一个项目，
+	这个项目就是方便你把一些 Issues、Pull requests 进行分类
+	//------Pulse
+	Pulse 可以理解成该项目的活跃汇总。
+	包括近期该仓库创建了多少个 Pull Request 或 Issue，
+	有多少人参与了这个仓库的开发等，都可以在这里一目了然。
+	根据这个页面，
+	用户可以判断该项目受关注程度以及
+	项目作者是否还在积极参与解决这些问题等。
+//--------创建库
+	在导航条中点击 + 号
+	new repository	==>名字,描述,public,
+	勾选初始化.
+//--------SSH协议 
+//ssh 与git和github本身并没有什么联系
+	1. SSH
+		提交代码之前一定是需要某种授权的，
+		而 GitHub 上一般都是基于 SSH 授权的。
+	2. 生成SSH key 和上传KEY
+		Linux 与 Mac 都是默认安装了 SSH ，
+		而 Windows 系统安装了 Git Bash 应该也是带了 SSH 的。
+		//在 Git Bash 输入 ssh （验证是否安装了ssh证书）
+		//------步骤
+		第一步：ssh-keygen -t rsa	//指定 rsa 算法生成密钥
+			接着连续三个回车键
+			
+			生成文件: 目录C:\Users\Administrator\.ssh
+			id_rsa		//密钥
+			id_rsa.pub  //公钥
+		
+			这两文件默认分别在如下目录里生成：
+			Linux/Mac 系统 在 ~/.ssh 下，
+			win系统在 C:\Users\Administrator\.ssh 下
+		第二步：
+			接下来要做的是把 id_rsa.pub 的内容添加到 GitHub 上，
+			这样你本地的 id_rsa 密钥跟 GitHub 上的 id_rsa.pub 公钥进行配对，
+			授权成功才可以提交代码。
+			//
+			先在 GitHub 上的设置页面，点击最左侧 SSH and GPG keys ：
+			然后点击右上角的 New SSH key 按钮：
+			在 Key 那栏把 id_rsa.pub 公钥文件里的内容复制粘贴进去就可以了
+		第三步:
+			//SH key 添加成功之后，输入 ssh -T git@github.com 进行测试
+//----------------------------Push & Pull
+//----------------------------Push & Pull
+代码示例： git push origin master
+意思就是把本地代码推到远程 master 分支。
+
+代码示例： git pull origin master
+意思就是把远程最新的代码更新到本地。
+
+
+
+
+一般我们在 push 之前都会先 pull ，这样不容易冲突。
+
+
+
+
+//----------------------------代码提交
+//----------------------------代码提交	
+		添加 SSH key 成功之后，//我们就有权限向 GitHub 上我们自己的项目提交代码了，
+		//------------------
+		提交代码有两种方法：
+		//-----------第一种方式
+			(1).在github上建立库，并初始化。
+			(2)Clone自己的项目
+				git clone git@github.com:LiHengofChina/lh.git
+				git clone git@github.com:LiHengofChina/Linux.git
+			(3)先提交到本地的仓库
+				git add a.md
+				git commit -m '第一次提交'
+			(4)提交到github
+				git push origin master 
+							//origin是远程库名
+							//master是分支名
+		//-----------第二种方式
+			(1)//将要上传的目录先上传到本地GIT库
+				git init 
+				git add *
+				git commit -m  '初始提交'
+			(2)在githb上建立一个项目，这时不要初始化
+			(3)把本地的项目与GitHub上的项目进行关联
+				git remote add origin git@github.com:LiHengofChina/lh.git
+				//git remote -v 可以查看有哪些远程仓库
+			(4)将本地git上的代码提交到 github
+				git push origin master
+ 	
+//----------------------如何取别人的项目,然后PD呢		
+//----------------------如何取别人的项目,然后PD呢
+	(1)点击右上角的 Fork 按钮,然后该项目就出现在了你自己账号的 Repository 里。
+		// Fork 过来的项目标题底部会显示一行小字：fork from stormzhang/9GAG 	
+	(2)把该项目 clone 到本地，然后修改的 bug 也好，想要新增的功能也好，
+	   总之把自己做的代码改动开发完，保存好。	
+	   接着，把自己做的代码改动 push 到 你自己的 GitHub 上去。
+	(3)点击你 Fork 过来的项目主页的 Pull requests 页面，	
+		点击 New pull request 按钮紧接着到如下页面：
+	(4)等着项目原作者 review 你的代码，并且决定会不会接受你的 PR，
+//----------------------		
+	Explore==>Trending 
+	就是说这个页面你可以看到最近一些热门的开源项目，
+	这个页面可以算是很多人主动获取一些开源项目最好的途径，
+	可以选择「当天热门」、
+	「一周之内热门」和「一月之内热门」来查看，
+	并且还可以分语言类来查看，
+	比如你想查看最近热门的 Android 项目，
+	那么右边就可以选择 Java 语言。
+
+	free-programming-books
+	这个项目目前 star 数排名 GitHub 第三，
+	总 star 数超过6w，
+	这个项目整理了所有跟编程相关的免费书籍，
+	而且全球多国语言版的都有，
+	中文版的在这里：free-programming-books-zh，
+	有了这个项目，理论上你可以获取任何编程相关的学习资料，强烈推荐给你们！
+
+
+	
