@@ -1,0 +1,43 @@
+//===================== 一般流程
+//===================== 一般流程
+
+1). 查看分支
+	git branch 		//查看分支  * 表示当前分支
+	git branch -a   //查看库(包括远端)
+
+2). 创建一个分支  +  切换
+	git branch liheng-test 	 
+	git checkout liheng-test	//切换分支	git co
+	
+3).	查看状态(代码修改之后)
+	git status 		
+
+4). 添加代码
+	git add a.md	//添加到文件缓存区，准备提交			
+    git add .  将当前目录的变化进行 add，包括(修改、新增、删除的内容)
+
+5).	//提交代码
+	git commit -m '备注'	
+
+6).	本地切换为主分支//如果是新加的目录，切换下目录
+		git checkout master
+//===================== 远端合并	
+//===================== 远端合并	
+8.1).   把新分支推到远端去合并//远端合并，可以先拉取一次
+		git push origin liheng-test
+		
+		//本地分支删除后，推到远端，删除远端的分支
+		//git push origin :liheng-test   (origin 后面有空格)		
+
+8.3).	从远端往下拉//远端合并，则从远端往下拉
+		git pull  或 git pull origin master
+//===================== 本地合并
+//===================== 本地合并
+9.1).   当前分支吸收 a 分支的代码//本地合并
+		
+		git merge liheng-test
+		
+		git branch -d liheng-test
+ 
+9.2).   把master推到远端
+		git push	或  git push origin master  

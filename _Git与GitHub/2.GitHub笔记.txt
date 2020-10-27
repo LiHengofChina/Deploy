@@ -151,7 +151,7 @@
 				git commit -m '第一次提交'
 			(4)提交到github
 				git push origin master 
-							//origin是远程库名
+							//origin是远程库名别名
 							//master是分支名
 		//-----------第二种方式
 			(1)//将要上传的目录先上传到本地GIT库
