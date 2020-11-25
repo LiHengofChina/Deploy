@@ -1,0 +1,22 @@
+http://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html
+
+src
+|----/main
+	|----/java
+	|----/resources
+	|----/filters
+	|----/webapp
+
+|----/test
+	|----/java
+	|----/resources
+	|----/filters
+	
+|----/it
+|----/assembly
+|----/site
+
+LICENSE.txt
+NOTICE.txt
+README.txt
+

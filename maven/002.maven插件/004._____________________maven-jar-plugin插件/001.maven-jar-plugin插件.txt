@@ -1,0 +1,31 @@
+//===================================== maven 打jar包的插件
+//===================================== maven 打jar包的插件
+	maven-jar-plugin 打包可运行的 jar包
+	
+
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-jar-plugin</artifactId>
+  			<version>3.1.1</version>
+  			<configuration>
+	  			<archive>
+	  			 	<manifest>
+	  			 		 <!-- 指定入口函数 -->
+	  			 		 <mainClass>com.liheng.test.Demo</mainClass>
+	  			 		 <!-- 
+						是否添加依赖的jar路径配置
+						<addClasspath>true</addClasspath>
+						 依赖的jar包存放位置，和生成的jar放在同一级目录下 
+						<classpathPrefix>lib/</classpathPrefix>
+	  			 		  -->
+	  			 	</manifest>
+	  			</archive>
+  			</configuration>
+  		</plugin>
+//===================================== maven-jar-plugin 的有eclisep 中的BUG
+//===================================== maven-jar-plugin 的有eclisep 中的BUG
+ 
+	一般使用 <version>3.1.1</version> 这个版本。
+
+	
+	

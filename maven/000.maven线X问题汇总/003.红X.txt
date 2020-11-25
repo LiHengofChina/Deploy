@@ -1,0 +1,14 @@
+
+Eclipse Maven项目报"Unknown"错误的解决
+这是maven-jar-plugin 3.1.2引入的Bug，
+见https://bugs.eclipse.org/bugs/show_bug.cgi?id=547340。
+只需在项目的pom.xml中，
+将maven-jar-plugin 3.1.2 降级为 3.1.1 即可消除Bug。
+
+
+<properties>
+	<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+</properties>
+
+
+

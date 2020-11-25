@@ -1,0 +1,27 @@
+
+
+
+
+
+<!-- 解决编译问题  spring-boot 
+ 要和一起使用 
+ 这个配置是给spring-boot使用的
+ -->
+<properties>
+	<java.version>1.8</java.version>
+</properties>
+
+
+
+等同于官方的
+
+
+maven.compiler.target  maven.compiler.source
+  
+	
+
+
+
+ 
+	
+	

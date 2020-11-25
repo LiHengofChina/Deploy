@@ -1,0 +1,39 @@
+
+//========================================  方式三
+//========================================  方式三
+
+ 
+ 
+  <properties>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		
+		<!--  java.version 可以省略，spring-boot2.3.0.RELEASE 默认也是 1.8 的jdk -->
+		<java.version>1.8</java.version>
+		
+  </properties>
+  <parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.0.RELEASE</version>
+		<relativePath />
+  </parent>
+ 
+	
+	
+	
+ 	
+只要指定 java.version 就等同于指定了
+maven.compiler.target
+maven.compiler.source
+
+
+
+java.version 并非 Maven 官方配置，那做到这一点的肯定就不是 Maven 了
+它就是  spring-boot-starter-parent POM 配置文件。
+所以设置了 java.version 也就等同于同时设置了maven.compiler.target、maven.compiler.source。
+
+	
+	
+	
+	
+	
