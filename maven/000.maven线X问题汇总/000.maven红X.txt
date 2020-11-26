@@ -1,0 +1,27 @@
+//============================================ 表现
+//============================================ 表现
+	maven项目更新报错：
+	Description Resource 	Path 	Location 	Type 
+	Failure to transfer XXXX
+
+//============================================ 解决办法 
+//============================================ 解决办法 
+
+(1). 修改镜像配置
+		<mirrors>
+			<mirror>
+			  <id>alimaven</id>
+			  <name>aliyun maven</name>
+		  　　<url>https://maven.aliyun.com/repository/public</url>
+			  <mirrorOf>central</mirrorOf>        
+			</mirror>
+		</mirrors>
+(2). eclipse中使用 User Settings 配置
+		//使用用户设置，而不要使用全局配置。
+		
+(3). 运行mvn命令时指定配置路径
+	--settings H:\apache-maven-3.6.3\settings_cd.xml
+
+
+
+	
