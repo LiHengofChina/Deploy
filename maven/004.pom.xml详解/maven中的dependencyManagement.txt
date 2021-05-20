@@ -1,0 +1,59 @@
+
+通常会在一个组织或者项目的最顶层的父POM中看到dependencyManagement元索。
+
+
+让 "所有在子项目" 中 "引用一个依赖" 而不用显式的 "列出版本号"。
+
+//==========================================================
+//==========================================================
+ 
+
+//========= 例如在父项目中：
+<dependencyManagement>
+		<dependencies>
+					<dependency>
+						<groupId>mysq1</groupId>
+						<artifactId>mysql-connector-java< /artifactId>
+						<version>5.1.2</version>
+					</dependency>
+					...
+		<dependencies>
+</dependencyManagement>
+
+//========= 然后在子项目里就可以添加mysql-connector时，
+//========= 不指定版本号,例如:
+
+然后在子项目里就可以添加mysql-connector时可以不指定版本号,例如:
+
+<dependencies>
+		<dependency>
+				<groupId>mysq1</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+		</dependency> 
+</dependencies>
+
+
+
+*****************************这样做的好处:
+*****************************这样做的好处:
+*****************************这样做的好处:
+		1). 如果有多个子项目都引用同-样依赖，则可以避免在每个使用的子项目里都声明一个版本号,
+			这样当想升级或切换到另一个版本时，只需要在顶层父容器里更新，
+			而不需要一个个子项目的修改;
+		2). 另外如果某个子项目需要另外的一个版本，只需要声明version就可以了。
+
+
+//========================================================== dependencyManagement
+//========================================================== dependencyManagement
+
+	1). dependencyManagement 只是声明依赖，并不实现引入，
+		因此子项目需要显示的声明需要用的依赖。
+
+	2). 如果"不在子项目中声明依赖"，是不会从父项目中继承下来的;
+
+	3). 只有在子项目中写了该依赖项,并且没有指定具体版本,
+
+		才会从父项目中继承该项，并 version 和 scope 都读取自父pom
+		
+	4). 如果子项目中指定了版本号,那么会使用子项目中指定的jar版本。
+
