@@ -1,0 +1,22 @@
+Description
+	org.apache.maven.archiver.MavenArchiver.getManifest(org.apache.maven.project.MavenProject, org.apache.maven.archiver.MavenArchiveConfiguration)	
+	
+Resource
+	pom.xml
+
+Path
+	/spring-boot-demo002
+
+Location
+	line 1
+
+Type
+	Maven Configuration Problem
+
+//=========================================================== Maven的插件版本与Eclipse不兼容
+
+出错原因：Maven的插件版本与Eclipse不兼容
+
+
+
+	
