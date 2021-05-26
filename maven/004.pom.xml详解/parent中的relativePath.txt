@@ -1,0 +1,19 @@
+<relativePath/>设定一个空值默认值为../pom.xml 表示将始终从父级仓库中获取，不从本地路径获取
+
+
+
+  <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.4.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  
+  
+  
+  MAVEN构建jar包时候查找顺序：relativePath元素中的地址 > 本地仓库 >  远程仓库 
+  
+ 
+ 比如： 我的子项目在构建的时候，需要找一个log4j日志包，
+		会先从父项目配置的路径中找，不会从本项目的pom.xml中找
+
