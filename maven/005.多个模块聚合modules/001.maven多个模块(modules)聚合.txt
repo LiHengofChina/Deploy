@@ -1,0 +1,105 @@
+
+
+
+//========================================================================= 多个maven 模块聚合
+//========================================================================= 多个maven 模块聚合
+
+//=========================== Maven模块结构
+//=========================== Maven模块结构
+ 
+		app-parent
+		|
+		|-- app-util
+		|        |-- pom.xml (jar)
+		|
+		|-- app-dao
+		|        |-- pom.xml (jar)
+		|
+		|-- app-service
+		|        |-- pom.xml (jar)
+		|
+		|-- app-web
+		|        |-- pom.xml (pom)
+		|
+		|-- pom.xml (war)
+
+
+//=========================== 父pom.xml配置示例：
+//=========================== 父pom.xml配置示例：
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+						  https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	  <modelVersion>4.0.0</modelVersion>
+
+	  <groupId>com.cainiao.test</groupId>
+	  <artifactId>parent</artifactId>
+	  <version>1.0</version>
+	  <packaging>pom</packaging>
+
+	  <modules>
+		<module>project-1</module>
+		<module>project-2</module>
+	  </modules>
+ 
+</project>
+
+	/**
+		说明 ：Maven的坐标GAV（groupId, artifactId, version）在这里进行配置，
+			   这些都是必须的。
+			   
+		注意：父pom.xml里面   <packaging>pom</packaging>值必须为pom
+
+				在Maven build parent的时候，
+				它会根据子模块的相互依赖关系整理一个build顺序，
+				然后依次build。
+
+		父pom的作用是抽取各个子模块公用的依赖，
+		控制其版本号，
+		从而保持各个子模块依赖版本一致。
+
+	*/
+
+
+//===========================  示例：子 pom.xml 配置
+//===========================  示例：子 pom.xml 配置
+	
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+							 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		  <modelVersion>4.0.0</modelVersion>
+
+		  <parent>
+				<groupId>com.cainiao.test</groupId>
+				<artifactId>parent</artifactId>
+				<version>1.0</version>
+				<relativePath>../pom.xml</relativePath>
+		  </parent>
+
+		  <artifactId>project-1</artifactId>
+	  　　....
+
+</project>
+ 
+	/**
+		它没有声明完整GAV（groupId, artifactId, version），
+		这里我们只看到了artifactId。这个POM并没有错，
+		groupId和version默认从父模块继承了。
+		实际上子模块从父模块继承一切东西，
+		包括依赖，插件配置等等。
+	*/
+
+3、模块之间的引用
+
+	当 app-web引用了模块app-service，
+	那么在运营app-web时，
+	maven会自动根据依赖关系，
+	先将app-service进行编译，
+	然后对app-web进行编译，
+	编译过程中的依赖都是本地整个项目工程的源码，
+	无需上传app-service到maven仓库。
+	
+	
+	

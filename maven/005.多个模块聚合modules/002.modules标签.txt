@@ -1,0 +1,61 @@
+
+
+//==============================================关于 modules 标签
+//==============================================关于 modules 标签
+	在顶级父 pom.xml 中
+	(1). 通过通过 <modules> 来引入子模块
+			引入子模块的编译顺序
+			（Maven引入依赖使用最短路径原则，
+			例如：a	 <–-  b  <–-  c1.0
+				  d  <–-  e  <–-  f  <–-  c1.1
+				  
+			//由于路径最短，最终引入的为c1.0；
+			//说明，上面 a项目引入 b 项目
+
+			但路径长度相同时，则会引入先申明的依赖。
+			因此尽量将更加底层的service放在更先的位置优先加载依赖较为合适。
+
+	(2). 可以将一些子项目中共用的依赖或将其版本统一写到父级配置中，
+		 以便统一管理。
+	
+	(3). groupId, artifactId, version能直接从父级继承，
+		 减少子项目的pom配置。
+	
+//============================================== 父 pom.xml示例
+//============================================== 父 pom.xml示例
+<?xml version="1.0" encoding="UTF-8"?>
+<project 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+						https://maven.apache.org/xsd/maven-4.0.0.xsd" >
+
+
+	........
+
+  <modules>
+    <!-- basic support service -->
+    <module>homie_shared_service</module>
+    <module>homie_auth_service</module>
+    <module>homie_calendar_service</module>
+	
+    <!-- functional service -->
+    <module>homie_user_service</module>
+    <module>homie_forum_service</module>
+    <module>homie_blog_service</module>
+    <module>homie_divination_service</module>
+	
+    <!-- integration service -->
+    <module>ancient-culture-api</module>
+	
+  </modules>
+ 
+	........
+
+</project>
+ 
+
+
+
+
+
