@@ -1,0 +1,13 @@
+
+//========================================== 
+//==========================================
+
+先打包 各个子项目，再打包最外层的项目
+
+
+
+ 
+
+mvn -f G:\Java\java_框架\spring\003.spring_cloud\002.spring-cloud_Netflix\003.OpenFeign\feign-parent-study-001\pom.xml clean package
+
+
